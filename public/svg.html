@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0">
+    <title>svg</title>
+    <link rel="stylesheet" href="css/standardize.css">
+    <link rel="stylesheet" type="text/css" href="css/daterangepicker.css"/>
+    <link rel="stylesheet" href="css/svg.css">
+    <script src="js/jquery-2.1.0.min.js"></script>
+    <script src="js/moment.min.js"></script>
+    <script src="js/jquery.daterangepicker.js"></script>
+    <script src="js/base64.min.js"></script>
+    
+    <script>
+        function effectiveDeviceWidth() {
+            // var deviceWidth = window.orientation/90%2 == 0 ? window.screen.width : window.screen.height;
+            var deviceWidth = window.screen.width;
+            // iOS returns available pixels, Android returns pixels / pixel ratio
+            // http://www.quirksmode.org/blog/archives/2012/07/more_about_devi.html
+            if (navigator.userAgent.indexOf('Android') >= 0 && window.devicePixelRatio) {
+                deviceWidth = deviceWidth / window.devicePixelRatio;
+            }
+            return deviceWidth;
+        }
+        var viewport = $('meta[name="viewport"]');
+        if (effectiveDeviceWidth() > 600) {
+            viewport.attr("content", "width=device-width, initial-scale=1,user-scalable=no");
+        } else {
+            viewport.attr("content", "width=device-width, initial-scale=0.5,user-scalable=no");
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+            var keyCodes = [61, 107, 173, 109, 187, 189];
+            $(document).keydown(function (event) {
+                // console.log(event.which);
+                if ((event.metaKey || event.ctrlKey) && (keyCodes.indexOf(event.which) != -1)) {;
+                    event.preventDefault();
+                }
+            });
+            $(window).bind('mousewheel DOMMouseScroll', function (event) {
+                if (event.metaKey || event.ctrlKey) {
+                    event.preventDefault();
+                }
+            });
+        });
+    </script>
+</head>
+
+<body class="body page-svg clearfix">
+    <div class="container _container">
+        <div class="left-container clearfix">
+            <div id="title">
+                <pre>
+  o-o  o   o  o-o       o-o  o--o o   o o--o o--o    O  o-O-o  o-o  o--o 
+ |     |   | o         o     |    |\  | |    |   |  / \   |   o   o |   |
+  o-o  o   o |  -o     |  -o O-o  | \ | O-o  O-Oo  o---o  |   |   | O-Oo 
+     |  \ /  o   |     o   | |    |  \| |    |  \  |   |  |   o   o |  \ 
+ o--o    o    o-o       o-o  o--o o   o o--o o   o o   o  o    o-o  o   o
+  </pre>
+            </div>
+            <div class="inputs-wrap inputs-wrap-1 clearfix">
+                <div class="label">SVG Width&nbsp;&nbsp;(mm)</div>
+                <input id="svg-width" class="config" type="number" value="300">
+                <div class="label label-2">SVG Padding(mm)</div>
+                <input id="svg-padding" class="config" type="number" value="10">
+            </div>
+            <div class="inputs-wrap inputs-wrap-2 clearfix">
+                <div class="label">SVG Height&nbsp;(mm)</div>
+                <input id="svg-height" class="config" type="number" value="200">
+                <div class="label label-4">Font Size&nbsp;&nbsp;(pt)</div>
+                <input id="svg-font-size" class="config" type="number" value="10">
+            </div>
+            <div id="data-count"><span id="records">0</span> records returned</div>
+            <div class="inputs-wrap inputs-wrap-3 clearfix">
+                <div class="date-picker">Select Date Range:</div>
+                <input id="date-range" class="date-range" type="text">
+                <a id="download" href=""><button id="generate_button">Generate</button></a>
+            </div>
+	        <div id="data-limitation">(Max Returned Data: 10000 rows)</div>
+        </div>
+        <div class="right-container">
+            <pre>
+                           
+   │                 │     
+   ├───── width ─────┤─┬─  
+   ├─────────────────┤ │   
+   │ ┌ ─ ─ ─ ─ ─ ─ ┐ │ │   
+   │                 │ │   
+   │ │             │ │ │   
+   │                 │ h   
+   │ │             │ │ e   
+   │                 │ i   
+   │ │    Text     │ │ g   
+   │                 │ h   
+   │ │             │ │ t   
+   │                 │ │   
+   │ │             │ │ │   
+   │                 │ │   
+   │ └ ─ ─ ─ ─ ─ ─ ┘ │ │   
+   └───▲─────────────┘─┴─  
+       │ padding
+            </pre>
+        </div>
+    </div>
+    <div class="container copyright"><a href="http://t-h-e-s-p-a-c-e.com/email-trek/">◩ t-h-e-s-p-a-c-e.com/email-trek/</a></div>
+    <script src="js/svg.js"></script>
+</body>
+
+</html>

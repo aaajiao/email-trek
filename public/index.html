@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta id="viewport" name="viewport" content="" />
+	<!--<link rel="stylesheet" type="text/css" href="normalize.css"/>-->
+	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <script src="js/jquery-2.1.0.min.js"></script>
+	<script>
+		function effectiveDeviceWidth() {
+//			var deviceWidth = window.orientation/90%2 == 0 ? window.screen.width : window.screen.height;
+			var deviceWidth = window.screen.width;
+			// iOS returns available pixels, Android returns pixels / pixel ratio
+			// http://www.quirksmode.org/blog/archives/2012/07/more_about_devi.html
+			if (navigator.userAgent.indexOf('Android') >= 0 && window.devicePixelRatio) {
+				deviceWidth = deviceWidth / window.devicePixelRatio;
+			}
+			return deviceWidth;
+		}
+		var viewport = $('meta[name="viewport"]');
+		if (effectiveDeviceWidth()>600){
+			viewport.attr("content", "width=device-width, initial-scale=1,user-scalable=no");
+		} else {
+			viewport.attr("content", "width=device-width, initial-scale=0.5,user-scalable=no");
+		}
+	</script>
+    <script>
+      $(document).ready(function(){
+        var keyCodes = [61, 107, 173, 109,187, 189];
+        $(document).keydown(function(event) {
+          // console.log(event.which);
+           if ((event.metaKey || event.ctrlKey) && (keyCodes.indexOf(event.which) != -1)) {;
+            event.preventDefault();
+            }
+        });
+        $(window).bind('mousewheel DOMMouseScroll', function (event) {
+           if (event.metaKey || event.ctrlKey) {
+             event.preventDefault();
+           }
+        });
+      });
+    </script>
+
+</head>
+
+<body style="position:absolute;overflow-y: scroll;">
+
+<div class="container">
+<div class="wrapper" style="margin-bottom: -42px;margin-top: 30px">
+<pre>
+         ___           ___           ___
+        /  /\         /__/\         /  /\        ___
+       /  /:/_       |  |::\       /  /::\      /  /\
+      /  /:/ /\      |  |:|:\     /  /:/\:\    /  /:/      ___     ___
+     /  /:/ /:/_   __|__|:|\:\   /  /:/~/::\  /__/::\     /__/\   /  /\
+    /__/:/ /:/ /\ /__/::::| \:\ /__/:/ /:/\:\ \__\/\:\__  \  \:\ /  /:/
+    \  \:\/:/ /:/ \  \:\~~\__\/ \  \:\/:/__\/    \  \:\/\  \  \:\  /:/
+     \  \::/ /:/   \  \:\        \  \::/          \__\::/   \  \:\/:/
+      \  \:\/:/     \  \:\        \  \:\          /__/:/     \  \::/
+       \  \::/       \  \:\        \  \:\         \__\/       \__\/
+        \__\/         \__\/         \__\/
+                            ___           ___           ___
+                ___        /  /\         /  /\         /__/|
+               /  /\      /  /::\       /  /:/_       |  |:|
+              /  /:/     /  /:/\:\     /  /:/ /\      |  |:|
+             /  /:/     /  /:/~/:/    /  /:/ /:/_   __|  |:|
+            /  /::\    /__/:/ /:/___ /__/:/ /:/ /\ /__/\_|:|____
+           /__/:/\:\   \  \:\/:::::/ \  \:\/:/ /:/ \  \:\/:::::/
+           \__\/  \:\   \  \::/~~~~   \  \::/ /:/   \  \::/~~~~
+                \  \:\   \  \:\        \  \:\/:/     \  \:\
+                 \__\/    \  \:\        \  \::/       \  \:\
+                           \__\/         \__\/         \__\/
+</pre>
+<div class="mark">
+  <ul style="list-style-type:none;padding-left: 0;">
+    <li >▞▚:<span id="total">0</span></li>
+    <li >░░:<span id="not_exists">0</span></li>
+    <li >▓▓:<span id="verified">0</span></li>
+    <li >██:<span id="sent">0</span></li>
+
+  </ul>
+</div>
+</div>
+
+
+<div class="wrapper">
+<pre>
+   ┌──────────────────────────────────────────────────────────────────────┐
+   │   Space: the final frontier. These are the voyages of the starship   │
+ ██│ ██████████. Its █████████ mission: to explore strange ███ worlds, to │
+ ██│seek out ███ life and ███ civilizations, to boldly go where no man has│
+ ██│                             gone before.                             │
+ ██└──────────────────────────────────────────────────────────────────────┘
+ ████████████████████████████████████████████████████████████████████████
+ ████████████████████████████████████████████████████████████████████████
+
+
+</pre>
+</div>
+
+
+<div class="wrapper">
+<pre>
+ ┌──────────────────────────────────────────────────────────────────────┐
+ │                                                                      │
+ │                                                                      │██
+ │                                                                      │██
+ │                                                                      │██
+ │                                                                      │██
+ │                                                                      │██
+ │                                                                      │██
+ │                                                                      │██
+ │                                                                      │██
+ │                                                                      │██
+ │                                                                      │██
+ │                                                                      │██
+ │                                                                      │██
+ │                                                                      │██
+ │                                                                      │██
+ │                                                                      │██
+ │                                                                      │██
+ └──────────────────────────────────────────────────────────────────────┘██
+   ████████████████████████████████████████████████████████████████████████
+   ████████████████████████████████████████████████████████████████████████
+</pre>
+<div id="data" >
+<pre>
+</pre>
+</div>
+</div>
+	<div class="wrapper" id="readme" style="text-align: center;display: none;">
+	<pre style="text-align: left;margin-top: 0px;margin-bottom: 200px">
+                 ____                               ___
+                /\  _`\                         __ /\_ \
+                \ \ \L\_\    ___ ___      __   /\_\\//\ \
+                 \ \  _\L  /' __` __`\  /'__`\ \/\ \ \ \ \
+                  \ \ \L\ \/\ \/\ \/\ \/\ \L\.\_\ \ \ \_\ \_
+                   \ \____/\ \_\ \_\ \_\ \__/.\_\\ \_\/\____\
+                    \/___/  \/_/\/_/\/_/\/__/\/_/ \/_/\/____/
+
+
+                        ______             __
+                       /\__  _\           /\ \
+                       \/_/\ \/ _ __    __\ \ \/'\
+                          \ \ \/\`'__\/'__`\ \ , <
+                           \ \ \ \ \//\  __/\ \ \\`\
+                            \ \_\ \_\\ \____\\ \_\ \_\
+                             \/_/\/_/ \/____/ \/_/\/_/
+
+ README
+
+   Email Trek is derived from the concept of Star Trek, we assume that the
+   email system is destroyed (more exactly and loss associated with human).
+
+   We construct a system can be randomly generated email, and will
+   automatically send mail, through this email we will get four state:
+
+     ▞▚ Total      ▒▒ Not Exists      ▓▓ Verified      ██ Sent
+
+   We construct a system can be randomly generated email, and will
+   automatically send mail, through this email we will get four kinds of
+   state: we will record these states, drawing into our own star coordinates.
+
+ CONTACT
+
+   If you have problems, questions, ideas or suggestions, please contact us
+   by posting to a suitable email. See http://eventstructure.com/email
+
+   All contributors to the project are listed : Quanquan (code).
+
+ WEB SITE
+
+   Visit the curl web site for the latest news and update:
+
+         http://eventstructure.com/email-trek/
+
+ GIT
+
+   To download the latest source off the GIT server do this:
+
+     git clone <a href="https://github.com/aaajiao/email-trek">https://github.com/aaajiao/email-trek</a>
+     svg <a href="http://t-h-e-s-p-a-c-e.com/email-trek/svg">http://t-h-e-s-p-a-c-e.com/email-trek/svg</a>
+
+   (you'll get a directory named email-trek created, filled with the source
+   code)
+
+ NOTICE
+
+   Email Trek contains pieces of source code that is Copyright (c) 2015, 2016
+   eventstructure. This notice is included here to comply with the distribution
+   terms.
+
+</pre>
+	</div>
+<div id="readme_switch" class="wrapper" style="text-align: center; margin-top: -120px">
+<p  style="font-family:'Menlo Regular';font-weight:normal;font-size:12px;cursor: pointer">
+◩ http://t-h-e-s-p-a-c-e.com/email-trek/
+</p>
+</div>
+	<script>
+		$("#readme_switch").click(function(){
+		    if ($('#readme').css('display')=='none') {
+			    $('#readme').css({'display':'block'});
+			    $('html, body').animate({
+				    scrollTop: $("#readme").offset().top
+			    }, 500);
+		    } else {
+			    $('html, body').animate({
+				    scrollTop: $("body").offset().top
+			    }, 500,function(){
+				    $('#readme').css({'display':'none'});
+			    });
+
+		    }
+			console.log("click");
+		});
+	</script>
+
+
+
+
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
