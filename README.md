@@ -42,7 +42,8 @@
 
    Visit the curl web site for the latest news and update:
 
-         http://eventstructure.com/email-trek/
+         * http://eventstructure.com/email-trek/
+         http://email-trek.t-h-e-s-p-a-c-e.com/
 
  GIT
 
