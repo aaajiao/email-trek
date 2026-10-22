@@ -66,6 +66,13 @@
 
 The 2026 maintenance branch restores the source actually deployed on the server: Express, Socket.IO and MongoDB. Earlier RethinkDB implementations remain in Git history. The artwork's ASCII layout, fonts, colours and generated-address principle remain intact.
 
+### Current operating mode (2026-10-22)
+
+The original artwork description above is retained as historical context. Current operation is limited: visitors still drive random SMTP/RCPT exploration and masked scrolling, and Mail You remains available for an explicitly submitted recipient. Automatic message delivery to randomly generated unknown addresses is paused. `AUTO_SEND` defaults to off; the authorized one-shot test has ended and automatic delivery remains disabled. These limits mean the current service does not reproduce the complete original automatic-sending mechanism.
+
+`VERIFIED` means an RCPT acceptance response was observed; it does not establish that an address belongs to a real mailbox or that a message arrived. `SENT` means the sending provider accepted the message, not that it reached the inbox, was read, or was opened.
+
+
 Use Node 24.22.1 and Yarn 1.22.22. `yarn.lock` is authoritative; do not regenerate it with an unrestricted dependency upgrade. Run `yarn install --frozen-lockfile --ignore-optional`, then `yarn test` (24 regression cases plus 22 pacing cases). On Linux, `REAL_FLOCK=1 yarn test:pacing` exercises the actual kernel lock; other runs use an injected lock while testing state logic. Copy `config.example.js` to a private `config.js` and supply the variables shown in `.env.example` through your deployment environment. The application does not load `.env` itself.
 
 Production uses one process, a persistent private `/app/maintenance-state` directory (0700), an authenticated MongoDB connection, and a reverse proxy that overwrites `X-Real-IP`. Configure only the exact direct proxy peer in `EMAILTREK_TRUSTED_PROXY_IPS`. State files are private, atomic and bounded; do not delete them to clear quotas. The process must not run before storage migration is finalized.
