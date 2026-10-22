@@ -1,0 +1,16 @@
+# Merge only this logging mapping into the existing Email Trek Compose services.
+# Preserve image, environment, ports, volumes, networks and restart policy.
+version: '2'
+services:
+  emailtrek:
+    logging:
+      driver: json-file
+      options:
+        max-size: '10m'
+        max-file: '3'
+  mongodb:
+    logging:
+      driver: json-file
+      options:
+        max-size: '10m'
+        max-file: '3'

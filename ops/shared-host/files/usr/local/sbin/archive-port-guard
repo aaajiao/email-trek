@@ -1,0 +1,17 @@
+#!/bin/sh
+set -eu
+for tool in iptables ip6tables; do
+    "$tool" -w -N ARCHIVE_HOST_GUARD 2>/dev/null || true
+    "$tool" -w -F ARCHIVE_HOST_GUARD
+    "$tool" -w -A ARCHIVE_HOST_GUARD -i eth0 -p tcp -m multiport --dports 21,4000,4001,35017,35018 -j DROP
+    "$tool" -w -A ARCHIVE_HOST_GUARD -j RETURN
+    "$tool" -w -C INPUT -j ARCHIVE_HOST_GUARD 2>/dev/null || "$tool" -w -I INPUT 1 -j ARCHIVE_HOST_GUARD
+    "$tool" -w -N ARCHIVE_FORWARD_GUARD 2>/dev/null || true
+    "$tool" -w -F ARCHIVE_FORWARD_GUARD
+    "$tool" -w -A ARCHIVE_FORWARD_GUARD -m conntrack --ctstate ESTABLISHED,RELATED -j RETURN
+    "$tool" -w -A ARCHIVE_FORWARD_GUARD -i eth0 -p tcp -m multiport --dports 27017,3000,4000 -j DROP
+    "$tool" -w -A ARCHIVE_FORWARD_GUARD -j RETURN
+done
+iptables -w -N DOCKER-USER 2>/dev/null || true
+iptables -w -C DOCKER-USER -j ARCHIVE_FORWARD_GUARD 2>/dev/null || iptables -w -I DOCKER-USER 1 -j ARCHIVE_FORWARD_GUARD
+ip6tables -w -C FORWARD -j ARCHIVE_FORWARD_GUARD 2>/dev/null || ip6tables -w -I FORWARD 1 -j ARCHIVE_FORWARD_GUARD

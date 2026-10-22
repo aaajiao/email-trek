@@ -1,0 +1,10 @@
+[Unit]
+Description=Renew HTTPS certificates for the two legacy projects
+Wants=network-online.target
+After=network-online.target docker.service nginx.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/archive-cert-renew
+TimeoutStartSec=1800

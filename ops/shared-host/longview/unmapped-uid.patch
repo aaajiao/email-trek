@@ -1,0 +1,8 @@
+--- a/Linode/Longview/DataGetter/Processes.pm
++++ b/Linode/Longview/DataGetter/Processes.pm
+@@ -68 +68,4 @@
+-	$proc{user}  = ( getpwuid( $proc{uid} ) )[0];
++	# Container UIDs may have no passwd entry on the host; retain their metrics.
++	$proc{user} = defined($proc{uid}) ? ( getpwuid( $proc{uid} ) )[0] : undef;
++	$proc{user} = defined($proc{uid}) ? 'uid-' . $proc{uid} : 'unknown'
++		unless defined($proc{user});

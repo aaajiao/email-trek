@@ -1,0 +1,11 @@
+[Unit]
+Description=Check Longview log rotation hourly
+
+[Timer]
+OnCalendar=hourly
+AccuracySec=1min
+Persistent=true
+Unit=longview-logrotate.service
+
+[Install]
+WantedBy=timers.target

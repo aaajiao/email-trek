@@ -1,0 +1,7 @@
+[Unit]
+Description=Rotate only the Longview monitoring log
+
+[Service]
+Type=oneshot
+UMask=0077
+ExecStart=/usr/sbin/logrotate --state /var/lib/logrotate/longview.status /etc/logrotate-longview.conf

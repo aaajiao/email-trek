@@ -1,0 +1,175 @@
+{
+  "schemaVersion": 1,
+  "capturedUtc": "2026-10-22T19:30:52.100593+00:00",
+  "scope": "Identical shared host files for both app repositories; one installation per host",
+  "serverMutationsDuringPackaging": false,
+  "extraAlertingEnabled": false,
+  "longviewPatch": {
+    "beforeSha256": "5410ff1174a92328357b56d2cf4931bedb97b370b106b67ce219a70935772375",
+    "afterSha256": "f5e0396b595c087396b02c870534dc91e4b8d933aaec9da9110ab9919531f948"
+  },
+  "dockerExpected": {
+    "applicationContainers": {
+      "driver": "json-file",
+      "max-size": "10m",
+      "max-file": "3"
+    },
+    "daemonDefault": {
+      "log-driver": "json-file",
+      "log-opts": {
+        "max-size": "50m",
+        "max-file": "3"
+      }
+    }
+  },
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "f407e5be90d95bb76c860ca5d27b147731fdfefef5efe7c9dbac2ae0a813e7bc",
+      "bytes": 9386,
+      "installPath": null,
+      "source": "Publication wrapper, documentation, or extracted minimal configuration/patch"
+    },
+    {
+      "path": "audit-public-files.py",
+      "sha256": "19c4396ea0d75cc70801db2297c0a01596469e523c259bd71c6bcf625d4bc806",
+      "bytes": 2494,
+      "installPath": null,
+      "source": "Publication wrapper, documentation, or extracted minimal configuration/patch"
+    },
+    {
+      "path": "docker/compose-logging.bot.yaml",
+      "sha256": "273d286d9b286f2673b13e687faa5283e6526628c686dd7a782384156616b2c4",
+      "bytes": 395,
+      "installPath": null,
+      "source": "Publication wrapper, documentation, or extracted minimal configuration/patch"
+    },
+    {
+      "path": "docker/compose-logging.emailtrek.yaml",
+      "sha256": "ad3e6d0f610d59dfef8086b5b614cbdd912d88bcaba8d71bc3e1b16aec14e9e7",
+      "bytes": 400,
+      "installPath": null,
+      "source": "Publication wrapper, documentation, or extracted minimal configuration/patch"
+    },
+    {
+      "path": "docker/daemon-logging.fragment.json",
+      "sha256": "f6fa37aa80b0f18d68dc2a380392336374911dc4411fbaafa177fe6cda5f114f",
+      "bytes": 96,
+      "installPath": null,
+      "source": "Publication wrapper, documentation, or extracted minimal configuration/patch"
+    },
+    {
+      "path": "files/etc/logrotate-longview.conf",
+      "sha256": "877610973c4553fa8057a629c53b51b2539221d9405508caad203623834399af",
+      "bytes": 149,
+      "installPath": "/etc/logrotate-longview.conf",
+      "source": "Read-only live allowlist capture on 2026-10-22",
+      "installMode": "0o644"
+    },
+    {
+      "path": "files/etc/logrotate.d/nginx",
+      "sha256": "8a3e882c9be84a1a97b0bcdd67bcfa4d370574ca2642df76237576ce3263cc01",
+      "bytes": 392,
+      "installPath": "/etc/logrotate.d/nginx",
+      "source": "Read-only live allowlist capture on 2026-10-22",
+      "installMode": "0o644"
+    },
+    {
+      "path": "files/etc/systemd/system/archive-cert-renew.service",
+      "sha256": "0e21079654787d865177ecb7cfc275f86b820748d2085c962e6afadf39c54316",
+      "bytes": 271,
+      "installPath": "/etc/systemd/system/archive-cert-renew.service",
+      "source": "Read-only live allowlist capture on 2026-10-22",
+      "installMode": "0o644"
+    },
+    {
+      "path": "files/etc/systemd/system/archive-cert-renew.timer",
+      "sha256": "dabf7cb0cf614152afc3394632dc6634ed5e91318b2a6ed38ebe497d8cce9017",
+      "bytes": 210,
+      "installPath": "/etc/systemd/system/archive-cert-renew.timer",
+      "source": "Read-only live allowlist capture on 2026-10-22",
+      "installMode": "0o644"
+    },
+    {
+      "path": "files/etc/systemd/system/archive-port-guard.service",
+      "sha256": "4daad469d190f6a6ec63f02f7d4061b2f910da19f16a0067c99268d78cd7f61e",
+      "bytes": 275,
+      "installPath": "/etc/systemd/system/archive-port-guard.service",
+      "source": "Read-only live allowlist capture on 2026-10-22",
+      "installMode": "0o644"
+    },
+    {
+      "path": "files/etc/systemd/system/docker.service.d/30-archive-port-guard.conf",
+      "sha256": "65d952edf68b1da0c53515b775e46d8a5a53a59cc2b50aaf5d3f54b111f577bc",
+      "bytes": 136,
+      "installPath": "/etc/systemd/system/docker.service.d/30-archive-port-guard.conf",
+      "source": "Read-only live allowlist capture on 2026-10-22",
+      "installMode": "0o644"
+    },
+    {
+      "path": "files/etc/systemd/system/longview-logrotate.service",
+      "sha256": "a34b56f8447609eb2f109568e9eb19f7c29d9af921008ea9d324386895c8bf92",
+      "bytes": 196,
+      "installPath": "/etc/systemd/system/longview-logrotate.service",
+      "source": "Read-only live allowlist capture on 2026-10-22",
+      "installMode": "0o644"
+    },
+    {
+      "path": "files/etc/systemd/system/longview-logrotate.timer",
+      "sha256": "6ce11c3eb69109a6d03a6f9e4cb8d02b36efc4ba7a8b91a6d20fc885d8075c98",
+      "bytes": 180,
+      "installPath": "/etc/systemd/system/longview-logrotate.timer",
+      "source": "Read-only live allowlist capture on 2026-10-22",
+      "installMode": "0o644"
+    },
+    {
+      "path": "files/usr/local/sbin/archive-cert-renew",
+      "sha256": "9d2809aa40d1025efa19d866829e54ef1424a05cda95f392d516553130fffaff",
+      "bytes": 822,
+      "installPath": "/usr/local/sbin/archive-cert-renew",
+      "source": "Read-only live allowlist capture on 2026-10-22",
+      "installMode": "0o750"
+    },
+    {
+      "path": "files/usr/local/sbin/archive-port-guard",
+      "sha256": "e87e707b86c5dab4a5efab2f526136c95e0a515e94b1365a196dbdc451a37cef",
+      "bytes": 1038,
+      "installPath": "/usr/local/sbin/archive-port-guard",
+      "source": "Read-only live allowlist capture on 2026-10-22",
+      "installMode": "0o750"
+    },
+    {
+      "path": "historical/fix-longview-host-logs-20261022.py",
+      "sha256": "25b3a9a3e05a9b4bf818b37c42fe8e4d1bde1e7355d70993a03b7f8d590df409",
+      "bytes": 10274,
+      "installPath": null,
+      "source": "Exact historical maintenance script; do not replay as installer"
+    },
+    {
+      "path": "longview/fixture-test.pl",
+      "sha256": "43597928a58e88fb588ef64e6bf031b400bd7d54be3a5f0c311a3469390956ba",
+      "bytes": 2088,
+      "installPath": null,
+      "source": "Publication wrapper, documentation, or extracted minimal configuration/patch"
+    },
+    {
+      "path": "longview/unmapped-uid.patch",
+      "sha256": "c4a85237ab282af76f4191b549def6c98a1f7cea83ef6d0087deb13621d1f3cc",
+      "bytes": 414,
+      "installPath": null,
+      "source": "Publication wrapper, documentation, or extracted minimal configuration/patch"
+    },
+    {
+      "path": "verify-installed.py",
+      "sha256": "596672119a2f3ead5635b424de86bbf61a2c999be432687be106db01ede94280",
+      "bytes": 2647,
+      "installPath": null,
+      "source": "Publication wrapper, documentation, or extracted minimal configuration/patch"
+    }
+  ],
+  "generatedReportsExcludedFromFileManifest": [
+    "manifest.json",
+    "validation.json",
+    "sensitive-content-scan.json"
+  ]
+}

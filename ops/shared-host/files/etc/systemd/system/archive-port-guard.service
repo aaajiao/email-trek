@@ -1,0 +1,13 @@
+[Unit]
+Description=Restrict direct access to legacy project container ports
+Before=docker.service
+After=network-pre.target
+Wants=network-pre.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/archive-port-guard
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

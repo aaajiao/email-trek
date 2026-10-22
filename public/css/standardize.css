@@ -486,7 +486,7 @@ img {
 .clearfix:after { clear: both; }
 .clearfix { *zoom: 1; }
 
-* {
+*:not(svg) {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }

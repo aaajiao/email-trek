@@ -1,0 +1,11 @@
+# Retained-server-image runtime migration only; see runtime-maintenance.md.
+# The output is private: legacy /app can contain credentials or application data.
+ARG LEGACY_IMAGE=archive-local/emailtrek-emailtrek:retained-4cdba5e5206b
+FROM ${LEGACY_IMAGE} AS legacy
+RUN rm -f -- /app/public/js/robo3t-1.4.2-darwin-x86_64-8650949.dmg /app/public/js/Secure-SHell-0.8.0.alfredworkflow /app/lib/mailBlue.js
+FROM node:24.22.1-alpine@sha256:06d7adf3e0ef61a13f1d28682726366f97a15aa1888c934d3ecec86c33918b53
+WORKDIR /app
+COPY --from=legacy /app /app
+COPY --from=legacy /usr/local/lib/node_modules/pm2 /usr/local/lib/node_modules/pm2
+RUN ln -s /usr/local/lib/node_modules/pm2/bin/pm2 /usr/local/bin/pm2 && ln -s /usr/local/lib/node_modules/pm2/bin/pm2-runtime /usr/local/bin/pm2-runtime
+CMD ["pm2-runtime", "start", "pm2.json", "--env", "production"]

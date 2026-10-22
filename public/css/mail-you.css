@@ -1,0 +1,80 @@
+body {
+    background-color: rgb(255, 255, 255);
+    font: 11px Menlo;
+    line-height: 1.1em;
+    color: rgb(0, 0, 0);
+}
+
+.config {
+    display: block;
+    float: left;
+    width: 116px;
+    height: 24px;
+    margin-left: 6px;
+    padding: 0 0 0 10px;
+    border: 1px solid rgb(0, 0, 0);
+    color: rgb(0, 0, 0);
+}
+
+.container {
+    position: relative;
+    width: 480px;
+    height: 500px;
+    margin: 100px auto 0;
+}
+
+.copyright {
+	height: 24px;
+	text-align: center;
+	margin-top: 320px;
+	margin-bottom: 40px;
+}
+
+a:link, a:visited, a:hover, a:active {
+	text-decoration: none;
+	color:#000;
+}
+
+#address-submit {
+    float: left;
+    width: 80px;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+    border: 1px solid rgb(0, 0, 0);
+    background-color: rgb(222, 222, 222);
+	cursor: pointer;
+}
+
+#address-input {
+    display: block;
+    float: left;
+    width: 300px;
+    height: 24px;
+    margin-left: 6px;
+    padding: 0 10px;
+    border: 1px solid rgb(0, 0, 0);
+    color: rgb(0, 0, 0);
+}
+
+.inputs-wrap {
+    clear: both;
+    width: 400px;
+    height: 24px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.label {
+    float: left;
+    width: 116px;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+    border: 1px solid rgb(0, 0, 0);
+}
+
+
+/* Feedback uses the original font/colors without moving the artwork. */
+.inputs-wrap { position: relative; }
+#mail-feedback { position: absolute; top: 32px; left: 0; width: 400px; line-height: 1.4; }

@@ -1,0 +1,18 @@
+#!/bin/bash
+set -euo pipefail
+exec 9>/run/lock/archive-cert-renew.lock
+flock -n 9 || exit 0
+/usr/bin/docker run --rm --name archive-certbot-renew --log-driver=none \
+  -v /etc/letsencrypt:/etc/letsencrypt \
+  -v /var/lib/letsencrypt:/var/lib/letsencrypt \
+  -v /var/log/letsencrypt:/var/log/letsencrypt \
+  -v /var/www/acme:/var/www/acme \
+  certbot/certbot@sha256:398c47284a6d6782825be71685f677ef3a1e65b8b5c278a8b1e99f6da84b4eb9 \
+  renew --cert-name archive-projects --non-interactive --no-random-sleep-on-renew \
+  --max-log-backups 7 --deploy-hook 'touch /var/lib/letsencrypt/reload-required' "$@"
+if [ -f /var/lib/letsencrypt/reload-required ]; then
+  /usr/sbin/nginx -t
+  /bin/systemctl reload nginx
+  rm /var/lib/letsencrypt/reload-required
+  date -u +%Y-%m-%dT%H:%M:%SZ > /var/lib/letsencrypt/last-nginx-reload
+fi

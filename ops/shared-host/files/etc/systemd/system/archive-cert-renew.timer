@@ -1,0 +1,11 @@
+[Unit]
+Description=Check legacy project HTTPS renewal twice daily
+
+[Timer]
+OnCalendar=*-*-* 03,15:15:00
+RandomizedDelaySec=3600
+Persistent=true
+Unit=archive-cert-renew.service
+
+[Install]
+WantedBy=timers.target

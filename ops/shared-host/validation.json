@@ -1,0 +1,40 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "Python3.5 syntax",
+      "path": "verify-installed.py",
+      "passed": true
+    },
+    {
+      "name": "Python3.5 syntax",
+      "path": "audit-public-files.py",
+      "passed": true
+    },
+    {
+      "name": "Python3.5 syntax",
+      "path": "historical/fix-longview-host-logs-20261022.py",
+      "passed": true
+    },
+    {
+      "name": "shell syntax",
+      "path": "files/usr/local/sbin/archive-cert-renew",
+      "passed": true
+    },
+    {
+      "name": "shell syntax",
+      "path": "files/usr/local/sbin/archive-port-guard",
+      "passed": true
+    },
+    {
+      "name": "Perl fixture syntax",
+      "passed": true
+    },
+    {
+      "name": "Longview patch dry-run and apply on matching-line fixture",
+      "passed": true
+    }
+  ],
+  "liveConfigurationFilesHashMatched": 10,
+  "note": "No install, service reload, restart, renewal, log rotation, or firewall mutation performed."
+}
