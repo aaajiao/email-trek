@@ -54,6 +54,12 @@ If the patched hash is already installed, do nothing. If the original hash match
 
 `historical/fix-longview-host-logs-20261022.py` is the exact original one-time maintenance script, retained to account for the work. It patches the source, creates rotation files, briefly stops Longview, saves a private compressed tail, compacts the large historical log, and starts the agent. It is not an idempotent installer, refuses an existing maintenance record/configuration, and must not be run by CI, systemd, or routine upgrades. The original host needed a bounded rotation-fixture/manual continuation after an old logrotate debug quirk; this script alone is not a promise that replaying the historical migration on another host will succeed. Use the declarative files and source patch for normal restoration.
 
+## Network migration follow-up (2026-10-22)
+
+The first boot after the interface migration restored the applications, TLS and database checks, but `networking.service` failed: three residual hooks from the already-removed `ubuntu-fan` package called the missing `fanctl` command. After checking that no active fan configuration remained and backing up the exact files, the residual package configuration was selected for removal with `dpkg --purge ubuntu-fan`. Interface definitions and runtime interface state were not edited, and the failed state was not cleared merely to make the check pass.
+
+Validate this cleanup on the next normal boot: confirm the hooks are absent, `networking.service` succeeds, no units have failed, addresses and the default route are correct, and the existing application/TLS/database health checks pass. The first boot is not evidence that this follow-up boot has passed; that result must be recorded separately.
+
 ## Verification and rollback
 
 `sudo python3 verify-installed.py` is read-only and Python3.5-compatible. It verifies installed hashes, timer/guard activation, the four containers' log settings and loopback bindings, and the Longview source hash. It prints no environment, private config, tokens, mail records, or log lines. It does not send HTTP business requests or contact SMTP/Mongo. Exact-source hash mismatch may reflect a later legitimate package update and needs review rather than automatic overwrite.

@@ -4,8 +4,8 @@
   "filesChecked": [
     {
       "path": "README.md",
-      "sha256": "acceb1d5f152f01b9912e6be199c374f750761e2029dae6ca1fe0e313da1dabc",
-      "bytes": 11266
+      "sha256": "57ff40b1eb5593b006bb26f3bbfe01c598d7a842d41e97835f8b46c9a6041ff8",
+      "bytes": 12209
     },
     {
       "path": "audit-public-files.py",
@@ -134,7 +134,7 @@
     },
     {
       "path": "manifest.json",
-      "sha256": "61fac9792eb3e84ab236626bb09106311dae93f4d6cc5a0e06c611623b2d3bcb",
+      "sha256": "7f9054e3d55a6baa922742452cce5bc572ec98ca63de08ca3bb906a6c2d01826",
       "bytes": 9322
     },
     {

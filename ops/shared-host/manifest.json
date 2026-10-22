@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "capturedUtc": "2026-10-22T20:49:00.193339+00:00",
+  "capturedUtc": "2026-10-22T20:56:11.579016+00:00",
   "scope": "Identical shared host files for both app repositories; one installation per host",
   "serverMutationsDuringPackaging": false,
   "extraAlertingEnabled": false,
@@ -25,8 +25,8 @@
   "files": [
     {
       "path": "README.md",
-      "sha256": "acceb1d5f152f01b9912e6be199c374f750761e2029dae6ca1fe0e313da1dabc",
-      "bytes": 11266,
+      "sha256": "57ff40b1eb5593b006bb26f3bbfe01c598d7a842d41e97835f8b46c9a6041ff8",
+      "bytes": 12209,
       "installPath": null,
       "source": "Publication wrapper, documentation, or extracted minimal configuration/patch"
     },
