@@ -4,8 +4,9 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "node test/run.js",
-    "start": "node app.js"
+    "test": "node test/run.js && node test/paced-tests.js",
+    "start": "node app.js",
+    "test:pacing": "node test/paced-tests.js"
   },
   "author": "",
   "license": "MIT",

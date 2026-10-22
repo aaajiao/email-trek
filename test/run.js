@@ -136,6 +136,8 @@ test('MailYou sent/verified/rejected each count once; unknown verification never
   const Mail=load('lib/mail.js',{
     '../config':{SMTP_CONF:{},VERIFIER:{timeout:15000},MAILOPTIONS:{subject:'fixture'},MAIL_STATUS:{VERIFIED:'verified',NOT_EXISTS:'not_exists',SENT:'sent'}},
     nodemailer:{createTransport:()=>({sendMail:async data=>{sent.push(data);if(smtpFailure)throw new Error('fixture SMTP failure')}})},
+    // Pacing has a separate real-budget suite; this case isolates final record semantics.
+    './smtpBudget':()=>({reserve:()=>({allowed:true,id:'fixture'}),finish:()=>true}),
     './mail-content':'fixture-only', './mail-address-generator':{gen:()=> 'fixture@example.test'},
     'email-verify':{}, './mailVerifier':{verify:async()=>{if(verified instanceof Error)throw verified;return verified}},
   })

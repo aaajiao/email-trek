@@ -1,0 +1,32 @@
+{
+  "database": "emailtrek",
+  "collection": "mail",
+  "recent": "mail_recent_v1",
+  "stats": "mail_totals_v1",
+  "cutoff": "6ada58640000000000000000",
+  "legacyCount": 99249396,
+  "legacyCounts": {
+    "not_exists": 49039503,
+    "verified": 50113406,
+    "sent": 96487
+  },
+  "lastId": "6ada58619e5f6b00121d3fb1",
+  "windowCount": 100000,
+  "windowBytes": 134217728,
+  "windowHash": "37a6d1c5615d80f34eafde9aa8cf36c875ddc381cf1733d930ebfa2f1effc3c9",
+  "summaryHash": "c0adf821045c4f2b303bfcf0698a30bf6ccd6be1e7eec68c2422aa3dc6a2037d",
+  "proofHash": "b5a8b3e3e191d21a43d6bf05af3102742816be6cdb3ede5154b07e8f67ab31cd",
+  "archiveHashes": {
+    "statistics.json": "c0adf821045c4f2b303bfcf0698a30bf6ccd6be1e7eec68c2422aa3dc6a2037d",
+    "history-samples.json.gz": "a50b1f1db2dae811007da365708bf37adf2738284641a0ce1889a5857760373f",
+    "tail-before-migration/tail-statistics.json": "2cdae3fe8a0fe7429a5d610e23aa72263ccacce8b6c7a488443b6ce9bbd682a1",
+    "tail-before-migration/tail-records.json.gz": "782afcd01eec9c28f0249f54468cddb3963ce1ef90cc09205aa2e6691b53bf12"
+  },
+  "sourceHashes": {
+    "app.js": "6ec329cd8802c254c6e631bf0f1b573912a1f7bb62fd4f4e9ec9807f0a19d5a2",
+    "lib/mongo.js": "2799dd5548c5584ad1e71c48a2f45efee5d9bb0c0ffe3d5b8c1c85649a953f40",
+    "lib/boundedStore.js": "03c072b87bf7843fffd1989c41c6e21c85dfa25f8645dc54bce33ec3b9212bb2",
+    "lib/setIOEvents.js": "5e62d04d1765c7355fdd1f4a0025a1b06cae37c5ecd19aa6f56b2d3fffee7f84",
+    "lib/mail.js": "0f436a85f572c5b8064c43c655c3e14696e874530ed968e8b2f1d4458ffbfe6c"
+  }
+}

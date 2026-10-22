@@ -28,4 +28,6 @@ module.exports = {
     sender: required('MAIL_FROM_ADDRESS'),
   },
   MAILOPTIONS: { from: required('MAIL_FROM'), subject: 'Email Trek' },
+  // Private opt-in only; never commit a live run ID or recipient list.
+  AUTO_SEND: { enabled: false, mode: 'test-once', runId: '', allowlist: [] },
 }
