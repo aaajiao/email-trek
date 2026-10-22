@@ -1,19 +1,22 @@
 {
   "apps": [
     {
+      "script": "app.js",
       "error_file": "/dev/null",
-      "out_file": "/dev/null",
       "cookieName": "mail-trek",
+      "watch": false,
+      "out_file": "/dev/null",
+      "instances": "1",
       "env": {
         "NODE_ENV": "development"
       },
+      "ignore_watch": [
+        "maintenance-state",
+        "/app/maintenance-state"
+      ],
       "env_production": {
         "NODE_ENV": "production"
-      },
-      "script": "app.js",
-      "instances": "1",
-      "watch": true,
-      "ignore_watch": ["node_modules", "maintenance-state"]
+      }
     }
   ]
 }

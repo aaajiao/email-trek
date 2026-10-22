@@ -75,7 +75,7 @@ The original artwork description above is retained as historical context. Curren
 
 Use Node 24.22.1 and Yarn 1.22.22. `yarn.lock` is authoritative; do not regenerate it with an unrestricted dependency upgrade. Run `yarn install --frozen-lockfile --ignore-optional`, then `yarn test` (24 regression cases plus 22 pacing cases). On Linux, `REAL_FLOCK=1 yarn test:pacing` exercises the actual kernel lock; other runs use an injected lock while testing state logic. Copy `config.example.js` to a private `config.js` and supply the variables shown in `.env.example` through your deployment environment. The application does not load `.env` itself.
 
-Production uses one process, a persistent private `/app/maintenance-state` directory (0700), an authenticated MongoDB connection, and a reverse proxy that overwrites `X-Real-IP`. Configure only the exact direct proxy peer in `EMAILTREK_TRUSTED_PROXY_IPS`. State files are private, atomic and bounded; do not delete them to clear quotas. The process must not run before storage migration is finalized.
+Production uses one process, a persistent private `/app/maintenance-state` directory (0700), an authenticated MongoDB connection, and a reverse proxy that overwrites `X-Real-IP`. PM2 file watching is disabled; production changes use a controlled container recreation rather than watching the dependency tree. Configure only the exact direct proxy peer in `EMAILTREK_TRUSTED_PROXY_IPS`. State files are private, atomic and bounded; do not delete them to clear quotas. The process must not run before storage migration is finalized.
 
 ### Storage and historical meaning
 

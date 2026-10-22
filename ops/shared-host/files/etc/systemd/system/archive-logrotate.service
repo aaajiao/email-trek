@@ -1,0 +1,9 @@
+[Unit]
+Description=Check global log rotation with the shared cron lock
+
+[Service]
+Type=oneshot
+UMask=0077
+Nice=10
+ExecStart=/usr/local/sbin/archive-logrotate
+TimeoutStartSec=300

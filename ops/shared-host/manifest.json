@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "capturedUtc": "2026-10-22T19:30:52.100593+00:00",
+  "capturedUtc": "2026-10-22T20:49:00.193339+00:00",
   "scope": "Identical shared host files for both app repositories; one installation per host",
   "serverMutationsDuringPackaging": false,
   "extraAlertingEnabled": false,
@@ -25,8 +25,8 @@
   "files": [
     {
       "path": "README.md",
-      "sha256": "f407e5be90d95bb76c860ca5d27b147731fdfefef5efe7c9dbac2ae0a813e7bc",
-      "bytes": 9386,
+      "sha256": "acceb1d5f152f01b9912e6be199c374f750761e2029dae6ca1fe0e313da1dabc",
+      "bytes": 11266,
       "installPath": null,
       "source": "Publication wrapper, documentation, or extracted minimal configuration/patch"
     },
@@ -59,6 +59,21 @@
       "source": "Publication wrapper, documentation, or extracted minimal configuration/patch"
     },
     {
+      "path": "files/etc/apt/apt.conf.d/20auto-upgrades",
+      "installPath": "/etc/apt/apt.conf.d/20auto-upgrades",
+      "source": "Public final host maintenance configuration",
+      "sha256": "d98adfb02781b787617dd52e0a0a015a40db511ee3d913f69677bc02e72d2732",
+      "bytes": 220,
+      "coverageNote": "Schedules available updates only; does not provide Ubuntu Legacy Support coverage."
+    },
+    {
+      "path": "files/etc/cron.daily/logrotate",
+      "installPath": "/etc/cron.daily/logrotate",
+      "source": "Public final host maintenance configuration",
+      "sha256": "9e5b0ab545c61d60fe5d65bc304d2efc731ecf7563488997838fb51475c59d5c",
+      "bytes": 128
+    },
+    {
       "path": "files/etc/logrotate-longview.conf",
       "sha256": "877610973c4553fa8057a629c53b51b2539221d9405508caad203623834399af",
       "bytes": 149,
@@ -67,12 +82,33 @@
       "installMode": "0o644"
     },
     {
+      "path": "files/etc/logrotate.conf",
+      "installPath": "/etc/logrotate.conf",
+      "source": "Public final host maintenance configuration",
+      "sha256": "26745137e89e48054e1104a98e97597e8bea4b0fd34a8b1d2dea272b2802398c",
+      "bytes": 732
+    },
+    {
       "path": "files/etc/logrotate.d/nginx",
-      "sha256": "8a3e882c9be84a1a97b0bcdd67bcfa4d370574ca2642df76237576ce3263cc01",
-      "bytes": 392,
+      "sha256": "9eb31a40a1a913683abb326406515accf70c7be934888b4c0320815a35ec6ac9",
+      "bytes": 405,
       "installPath": "/etc/logrotate.d/nginx",
       "source": "Read-only live allowlist capture on 2026-10-22",
       "installMode": "0o644"
+    },
+    {
+      "path": "files/etc/logrotate.d/rsyslog",
+      "installPath": "/etc/logrotate.d/rsyslog",
+      "source": "Public final host maintenance configuration",
+      "sha256": "6a944a599625cc1dc8cde3f2686af42b53eb79ea136d8ce44d31e83266596e5b",
+      "bytes": 527
+    },
+    {
+      "path": "files/etc/systemd/journald.conf.d/30-archive-limits.conf",
+      "installPath": "/etc/systemd/journald.conf.d/30-archive-limits.conf",
+      "source": "Public final host maintenance configuration",
+      "sha256": "186a894d4a9d96d5a3c764701cff4dc8cc695455559020c95ebbff0f3b4e1b85",
+      "bytes": 303
     },
     {
       "path": "files/etc/systemd/system/archive-cert-renew.service",
@@ -89,6 +125,20 @@
       "installPath": "/etc/systemd/system/archive-cert-renew.timer",
       "source": "Read-only live allowlist capture on 2026-10-22",
       "installMode": "0o644"
+    },
+    {
+      "path": "files/etc/systemd/system/archive-logrotate.service",
+      "installPath": "/etc/systemd/system/archive-logrotate.service",
+      "source": "Public final host maintenance configuration",
+      "sha256": "f6eb78eebd110b066b5fc3f09e6c650a5512877efbe7295881880555af86a545",
+      "bytes": 178
+    },
+    {
+      "path": "files/etc/systemd/system/archive-logrotate.timer",
+      "installPath": "/etc/systemd/system/archive-logrotate.timer",
+      "source": "Public final host maintenance configuration",
+      "sha256": "7323fad8b5d0a8825196b62e761406bd637af0dbcf9b8bea2259816024aef9e7",
+      "bytes": 191
     },
     {
       "path": "files/etc/systemd/system/archive-port-guard.service",
@@ -131,6 +181,13 @@
       "installMode": "0o750"
     },
     {
+      "path": "files/usr/local/sbin/archive-logrotate",
+      "installPath": "/usr/local/sbin/archive-logrotate",
+      "source": "Public final host maintenance configuration",
+      "sha256": "03ac915dc746a2164366184f19febd75eed242304e5c11e2343f7d4cade9b323",
+      "bytes": 399
+    },
+    {
       "path": "files/usr/local/sbin/archive-port-guard",
       "sha256": "e87e707b86c5dab4a5efab2f526136c95e0a515e94b1365a196dbdc451a37cef",
       "bytes": 1038,
@@ -161,8 +218,8 @@
     },
     {
       "path": "verify-installed.py",
-      "sha256": "596672119a2f3ead5635b424de86bbf61a2c999be432687be106db01ede94280",
-      "bytes": 2647,
+      "sha256": "11b2605bd6ec0f9fa148def020bbd7cda77e7c6955427d859235a96cbe3d3be3",
+      "bytes": 2674,
       "installPath": null,
       "source": "Publication wrapper, documentation, or extracted minimal configuration/patch"
     }

@@ -1,0 +1,3 @@
+#!/bin/sh
+# Global rotation shares one state file and kernel lock with the hourly timer.
+exec /usr/local/sbin/archive-logrotate

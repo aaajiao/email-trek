@@ -1,0 +1,11 @@
+[Unit]
+Description=Check size limits for host and web logs hourly
+
+[Timer]
+OnCalendar=hourly
+AccuracySec=1min
+Persistent=true
+Unit=archive-logrotate.service
+
+[Install]
+WantedBy=timers.target

@@ -23,7 +23,7 @@ def main():
         path = Path(target)
         passed = path.is_file() and hashlib.sha256(path.read_bytes()).hexdigest() == item['sha256']
         checks.append({'check': 'installed-file', 'path': target, 'passed': passed})
-    for unit in ['archive-port-guard.service', 'archive-cert-renew.timer', 'longview-logrotate.timer']:
+    for unit in ['archive-port-guard.service', 'archive-cert-renew.timer', 'archive-logrotate.timer', 'longview-logrotate.timer']:
         active_exit, active = command(['systemctl', 'is-active', unit])
         enabled_exit, enabled = command(['systemctl', 'is-enabled', unit])
         checks.append({'check': 'unit', 'unit': unit, 'active': active, 'enabled': enabled,

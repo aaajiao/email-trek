@@ -1,0 +1,7 @@
+#!/bin/sh
+# One global lock and state for cron.daily and the hourly systemd timer.
+# Longview intentionally uses its own independent configuration and state.
+set -eu
+umask 077
+/usr/bin/install -d -m 0700 -o root -g root /run/archive-logrotate
+exec /usr/bin/flock --exclusive --wait 120 /run/archive-logrotate/global.lock     /usr/sbin/logrotate --state /var/lib/logrotate/status /etc/logrotate.conf

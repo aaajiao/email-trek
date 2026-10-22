@@ -27,14 +27,17 @@
       "passed": true
     },
     {
-      "name": "Perl fixture syntax",
+      "name": "shell syntax",
+      "path": "files/usr/local/sbin/archive-logrotate",
       "passed": true
     },
     {
-      "name": "Longview patch dry-run and apply on matching-line fixture",
+      "name": "shell syntax",
+      "path": "files/etc/cron.daily/logrotate",
       "passed": true
     }
   ],
-  "liveConfigurationFilesHashMatched": 10,
-  "note": "No install, service reload, restart, renewal, log rotation, or firewall mutation performed."
+  "liveConfigurationFilesHashMatched": 18,
+  "note": "Read-only exact live hashes passed after separately coordinated deployment. Static validation made no server changes.",
+  "priorLongviewFixturePassed": true
 }
