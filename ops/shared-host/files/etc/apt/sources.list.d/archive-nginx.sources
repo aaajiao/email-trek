@@ -1,0 +1,6 @@
+Types: deb
+URIs: https://nginx.org/packages/ubuntu
+Suites: jammy
+Components: nginx
+Architectures: amd64
+Signed-By: /etc/apt/keyrings/archive-nginx.asc

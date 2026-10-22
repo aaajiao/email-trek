@@ -37,7 +37,15 @@
       "passed": true
     }
   ],
-  "liveConfigurationFilesHashMatched": 18,
-  "note": "Read-only exact live hashes passed after separately coordinated deployment. Static validation made no server changes.",
-  "priorLongviewFixturePassed": true
+  "liveConfigurationFilesHashMatched": 27,
+  "note": "Read-only final verification passed. Four cgroup namespace changes were explicitly approved; all other collected contracts matched. No production mutation or mail was performed by QA.",
+  "priorLongviewFixturePassed": true,
+  "finalControlledRebootAccepted": true,
+  "checkedDuring": "after final controlled reboot",
+  "liveVerificationChecks": 37,
+  "reviewedApplicationComparisonChecks": 410,
+  "offlineComparisonFixtures": 16,
+  "finalAcmeStagingDryRunPassed": true,
+  "productionCertificateReplacedByDryRun": false,
+  "fixedRollbackGenerationRetained": true
 }

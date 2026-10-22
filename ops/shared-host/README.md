@@ -2,7 +2,7 @@
 
 This directory belongs in **both repositories at the same revision**, for example `ops/shared-host/`. The two projects share one Nginx/Docker host. These files have one host-level owner and are installed **once per host**, regardless of which repository supplies them. Keep both copies byte-identical and compare `manifest.json` hashes when updating either repository. Each project remains responsible for its own app image, private configuration, persistent data, and application-specific security changes.
 
-This package records the maintenance performed on 2026-10-22. Packaging it made no server changes. It adds no alert recipients, email notifications, monitoring service, or recurring Codex task. The timers here perform certificate renewal and log rotation; the APT policy schedules package metadata refresh and available unattended updates. Existing Longview monitoring remains in place; its account/API configuration is deliberately excluded. Root SSH login and the SSH configuration are outside this package.
+This package records the maintenance performed on 2026-10-22–23. Packaging it made no server changes. It adds no alert recipients, email notifications, monitoring service, or recurring Codex task. The timers here perform certificate renewal and log rotation; the APT policy schedules package metadata refresh and eligible Ubuntu unattended updates. Vendor package upgrades use a tested maintenance window. Existing Longview monitoring remains in place; its account/API configuration is deliberately excluded. Root SSH login and the SSH configuration are outside this package.
 
 ## Contents and installed behavior
 
@@ -16,7 +16,8 @@ This package records the maintenance performed on 2026-10-22. Packaging it made 
 | Longview UID handling | `longview/unmapped-uid.patch` | Preserves process metrics for container UIDs absent from host passwd: `uid-NNN`; missing UID becomes `unknown`. The historical source hash is pinned below. No Longview account setting changes. |
 | Longview logs | Dedicated configuration and service/timer | Hourly check; rotate daily or above 10MiB at check time, seven rotated files, compression, copytruncate, separate state. This is not a strict continuous size cap or guaranteed seven-day retention. The configuration is outside `/etc/logrotate.d` to avoid duplicate daily handling. |
 | System journal | `files/etc/systemd/journald.conf.d/30-archive-limits.conf` | Runtime storage target 32MiB, persistent storage target 128MiB, bounded individual files and seven-day retention. Effective after the coordinated host reboot; existing journald storage mode is preserved. |
-| Package maintenance | `files/etc/apt/apt.conf.d/20auto-upgrades` | Daily package-index refresh and unattended-upgrade checks; package-cache cleanup every seven days. Automatic reboot and unused-dependency removal are disabled. This schedules available updates, not a distribution upgrade or additional security entitlement. |
+| Package maintenance | `20auto-upgrades`, vendor sources/keyrings/pins and `99archive-vendor-maintenance` | Daily package-index refresh and eligible Ubuntu unattended-upgrade checks; cache cleanup every seven days. Automatic reboot and unused-dependency removal are disabled. Vendor package upgrades are excluded from unattended installation and require a tested maintenance window. |
+| Docker daemon | `files/etc/docker/daemon.json` | Reviewed host settings: classic `overlay2`, containerd image snapshotter disabled, iptables firewall backend, default bridge `172.17.0.1/16`, bounded fallback logs. Preserve project networks and loopback published ports. |
 
 ## Installation / adoption
 
@@ -25,9 +26,9 @@ On the already-maintained host, run the read-only verification first and leave m
 For a reviewed restoration or a new matching host:
 
 1. Back up existing configuration and unit files privately, preserving ownership and permissions. Verify the external interface really is `eth0`, the Docker service names/ports match this package, and Nginx serves the existing ACME webroot `/var/www/acme`. Do not copy this host-specific firewall blindly to a different network layout.
-2. Install the exact files from `files/` at their corresponding absolute paths. Use root ownership, mode 0750 for `archive-cert-renew` and `archive-port-guard`, mode 0755 for `archive-logrotate` and `/etc/cron.daily/logrotate`, and mode 0644 for the remaining configurations and units. Do not copy private certificates, renewal-account data, or log contents into Git. The existing certificate/account and webroot must be restored separately from private backup.
+2. Install the reviewed files from `files/` at their corresponding absolute paths, except `files/etc/docker/daemon.json`: that complete host capture is a reference, not an instruction to overwrite an existing daemon configuration. Merge its appropriate settings in step 5 and validate them before a coordinated restart. Use root ownership, mode 0750 for `archive-cert-renew` and `archive-port-guard`, mode 0755 for `archive-logrotate` and `/etc/cron.daily/logrotate`, and mode 0644 for the remaining configurations and units. The manifest records the captured mode and owner for installed files. Do not copy private certificates, renewal-account data, or log contents into Git. The existing certificate/account and webroot must be restored separately from private backup.
 3. Validate shell syntax with `bash -n` / `sh -n`, Nginx with `nginx -t`, and the unit files with `systemd-analyze verify`. Validate rotation without rotating logs using `logrotate --debug --state /var/lib/logrotate/longview.status /etc/logrotate-longview.conf` and `logrotate --debug --state /var/lib/logrotate/status /etc/logrotate.conf`. The global configuration deliberately has no stray root-owned path entry that an older parser could mistake for a logfile rule.
-4. After review, run `systemctl daemon-reload`, enable/start `archive-port-guard.service`, `archive-cert-renew.timer`, `archive-logrotate.timer`, and `longview-logrotate.timer`. Do not restart Docker merely to load its drop-in: the live guard can be applied independently, and the drop-in governs the next Docker start. Keep existing app services running during adoption.
+4. After review, disable/stop the distribution `logrotate.timer` so the global hourly scheduler has one owner. Run `systemctl daemon-reload`, enable/start `archive-port-guard.service`, `archive-cert-renew.timer`, `archive-logrotate.timer`, and `longview-logrotate.timer`. Do not restart Docker merely to load its drop-in: the live guard can be applied independently, and the drop-in governs the next Docker start. Keep existing app services running during adoption.
 5. Merge the Docker **logging mappings** into the existing Compose services. Preserve all image IDs, environment, networks, volumes, restart policy, and data. Edit each existing `ports` list to its loopback-only binding below; do not add a second Compose override port entry, which can retain the old public binding. Container recreation belongs to an approved app deployment with rollback, not to this file-copy step. Likewise, merge the daemon JSON fragment without replacing unrelated keys; loading daemon defaults needs a separately coordinated Docker restart and does not retrofit existing containers.
 
 | Existing container | Required host-to-container binding |
@@ -39,9 +40,11 @@ For a reviewed restoration or a new matching host:
 
 Email Trek's PM2 configuration directs its internal `out_file` and `error_file` to `/dev/null`, while pm2-runtime still streams events into Docker's bounded log. Preserve that application-side setting. PM2 file watching is disabled: apply reviewed production source changes by controlled container recreation instead of watching the dependency tree. Do not set `disable_logs: true`, which would also suppress its event stream. Never logrotate Docker-managed JSON log files independently.
 
-## Package coverage limitation
+## Current operating system and support
 
-The maintained host still runs Ubuntu 16.04 and does not have Ubuntu Legacy Support coverage enabled. Enabling the APT schedule does not restore security support to unavailable or unsupported packages and does not change the operating-system release. Only eligible updates from the configured repositories can be installed. A distribution migration and any extended security entitlement remain separate work; never describe this scheduling file as full security coverage.
+The final maintained host is Ubuntu 22.04 after the verified staged transition from 16.04 through 18.04 and 20.04. Ubuntu Pro is not attached. Eligible Ubuntu distribution updates come from the configured Jammy repositories; the APT schedule does not create an extended security entitlement.
+
+Verified runtime packages: Nginx 1.30.6, Docker 29.9.2, containerd 2.4.2. Intermediate package holds were compatibility measures for the OS transition, not a recommendation to retain old dependency versions indefinitely. Maintained dependency versions and necessary source compatibility fixes remain the preferred policy.
 
 ## Longview source patch and historical cleanup
 
@@ -66,4 +69,45 @@ Validate this cleanup on the next normal boot: confirm the hooks are absent, `ne
 
 Also inspect `systemctl list-timers archive-cert-renew.timer archive-logrotate.timer longview-logrotate.timer`, `nginx -t`, and the public HTTPS certificates. A controlled `/usr/local/sbin/archive-cert-renew --dry-run` checks the ACME challenge using the existing renewal setup; this does contact ACME and is not part of the read-only verifier. A live deploy-hook/reload is separate from a dry run. Test public port closure from an external host, while confirming HTTPS and SSH remain reachable. Do not read or publish container environment or certificate private-key files as evidence.
 
+The final post-reboot ACME dry run completed successfully for `bot-gluttony.com` and `email-trek.t-h-e-s-p-a-c-e.com` using the existing renewal configuration. Both names passed simulated renewal against the staging service; no production certificate was replaced. This validates the renewal challenge path without claiming a new production issuance.
+
 Rollback restores the private file backups, then reloads systemd and reapplies only the affected guard/units. Restore container logging/port changes through the original Compose configuration and retained images/data mounts. Never delete volumes or certificate/account state. Do not remove the port guard merely because an app deployment rolls back. No new notification or alerting mechanism is enabled by these files.
+
+## Final Jammy host configuration
+
+Global `/etc/logrotate.conf` includes the distribution snippets without defining wtmp/btmp again. Their reviewed policies are retained in `/etc/logrotate.d/wtmp` and `/etc/logrotate.d/btmp`. The distribution `logrotate.timer` is disabled; `archive-logrotate.timer` supplies the hourly check, with the daily cron path sharing its lock and state. Longview keeps its independent rotation configuration. Validate the complete global configuration, not isolated fragments.
+
+Five obsolete SSH directives that were already ignored were commented out. At the Ubuntu 18.04 compatibility step, the effective `sshd -T` output was byte-identical before and after that cleanup; existing root SSH login and authentication settings were preserved. Validate the installed SSH configuration and service before restarting; this package does not replace sshd_config.
+
+## Current versions and vendor update policy
+
+| Component | Installed checkpoint |
+| --- | --- |
+| Ubuntu | 22.04.5 LTS |
+| Nginx | 1.30.6 |
+| Docker Engine | 29.9.2 |
+| containerd | 2.4.2 |
+| Docker Compose plugin | 5.6.1 |
+| Buildx plugin | 0.38.1 |
+| Application Node runtime | 24.22.1 |
+| MongoDB | 4.4.2, unchanged |
+
+The OS and host dependencies were updated; MongoDB and application driver/library major versions were not upgraded by this host migration. MongoDB remains a separate maintenance item. Prefer maintained dependency versions with necessary source compatibility changes rather than retaining old versions by default.
+
+The six vendor-policy files use official Docker/Nginx Jammy repositories with per-source `Signed-By` keyrings. Version pins permit Nginx `1.30.*`, Docker Engine `29.*`, containerd `2.*`, Compose `5.*` and Buildx `0.*`; rejecting fallback pins prevent an unreviewed branch change. Review these limits before their branches cease to receive relevant fixes. Ubuntu Pro is not attached. This policy does not create ESM entitlement or certify all legacy application dependencies.
+
+`99archive-vendor-maintenance` leaves Ubuntu security origins in place, excludes the named vendor packages from unattended installation, and explicitly disables automatic reboot. Signed index refresh, candidate policies and an unattended-upgrade dry run were checked after installation. Vendor updates require an operator-run maintenance window and compatibility checks.
+
+Use the plugin command `docker compose` (for example `docker compose version` or a reviewed `docker compose -p <project> -f <private-file> config --quiet`). Keep the complete deployment Compose files and environments private: a normal rendered `config` output can contain credentials. The public `docker/compose-logging.*.yaml` files are logging fragments, not complete deployable projects.
+
+Docker 29 used fresh container metadata and recreated exactly four containers from the existing image IDs and private configuration, with their existing application/data bind mounts, network addresses and log bounds. The reviewed security-setting change is limited to those four containers: cgroup namespace mode changed from `host` to `private`; the other collected security fields stayed equal. This retains the more isolated cgroup v2 default documented by [Docker](https://docs.docker.com/engine/containers/runmetrics/#running-docker-on-cgroup-v2). Retained old-engine metadata and rollback backups stay private. A new container ID is expected; altered image/configuration/data is not. Never import an old engine's internal container metadata blindly into a new daemon.
+
+The exact reviewed daemon settings are included as a host reference. Merge only appropriate settings into another existing daemon configuration, validate it with `dockerd --validate --config-file=...`, and coordinate any daemon restart. The default bridge address and iptables backend are host-specific; do not overwrite unrelated networking or authentication settings.
+
+The final controlled reboot passed 410 reviewed application/data/configuration comparisons and 37 installed-configuration/service checks, including all 27 captured host files. The original strict result was retained: its only differences were the four explicitly approved cgroup namespace changes. Application state, data counts and the persistent sending/revocation controls were preserved; no email or Socket.IO session was initiated by the acceptance checks.
+
+After reviewed backups, 194 explicitly selected obsolete packages were removed, recovering 1,890,033,664 bytes without changing protected application configuration or the four running containers. The valid Ubuntu 5.15 fallback kernel links and the Linode 7.2 boot-kernel configuration were retained.
+
+## Local rollback retention
+
+This maintenance retains one fixed-generation cold application/data backup, the old Docker/containerd runtime metadata and the old package rollback set. Redundant image-export and transfer archives were removed after acceptance; the remaining free disk space at that checkpoint was 10,193,616,896 bytes (about 9.5 GiB). Private backups and application credentials stay outside Git. No recurring backup job or automatic generation accumulation was added. Verify a replacement backup before retiring the previous generation during future maintenance; this policy does not change any existing provider-managed backups.

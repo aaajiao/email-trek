@@ -22,12 +22,18 @@ def main():
             continue
         path = Path(target)
         passed = path.is_file() and hashlib.sha256(path.read_bytes()).hexdigest() == item['sha256']
+        if path.is_file() and item.get('mode') is not None:
+            stat = path.stat()
+            passed = passed and (stat.st_mode & 0o777) == int(item['mode'], 8) and stat.st_uid == item.get('uid', 0) and stat.st_gid == item.get('gid', 0)
         checks.append({'check': 'installed-file', 'path': target, 'passed': passed})
     for unit in ['archive-port-guard.service', 'archive-cert-renew.timer', 'archive-logrotate.timer', 'longview-logrotate.timer']:
         active_exit, active = command(['systemctl', 'is-active', unit])
         enabled_exit, enabled = command(['systemctl', 'is-enabled', unit])
         checks.append({'check': 'unit', 'unit': unit, 'active': active, 'enabled': enabled,
                        'passed': active_exit == 0 and enabled_exit == 0})
+    enabled_exit, enabled = command(['systemctl', 'is-enabled', 'logrotate.timer'])
+    active_exit, active = command(['systemctl', 'is-active', 'logrotate.timer'])
+    checks.append({'check': 'distribution-logrotate-timer-disabled', 'enabled': enabled, 'active': active, 'passed': enabled == 'disabled' and active == 'inactive'})
     for name in ['bot_crazyplayer_1', 'bot_mongodb_1', 'emailtrek_emailtrek_1', 'emailtrek_mongodb_1']:
         code, raw = command(['docker', 'inspect', name])
         if code:

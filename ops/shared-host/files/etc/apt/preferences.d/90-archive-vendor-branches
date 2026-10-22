@@ -1,0 +1,40 @@
+Explanation: Permit reviewed maintained branches; future branch changes need compatibility review.
+Package: nginx
+Pin: version 1.30.*
+Pin-Priority: 900
+
+Package: nginx
+Pin: version *
+Pin-Priority: -1
+
+Package: docker-ce docker-ce-cli docker-ce-rootless-extras
+Pin: version 5:29.*
+Pin-Priority: 900
+
+Package: docker-ce docker-ce-cli docker-ce-rootless-extras
+Pin: version *
+Pin-Priority: -1
+
+Package: containerd.io
+Pin: version 2.*
+Pin-Priority: 900
+
+Package: containerd.io
+Pin: version *
+Pin-Priority: -1
+
+Package: docker-compose-plugin
+Pin: version 5.*
+Pin-Priority: 900
+
+Package: docker-compose-plugin
+Pin: version *
+Pin-Priority: -1
+
+Package: docker-buildx-plugin
+Pin: version 0.*
+Pin-Priority: 900
+
+Package: docker-buildx-plugin
+Pin: version *
+Pin-Priority: -1

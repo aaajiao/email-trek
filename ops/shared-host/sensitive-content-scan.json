@@ -4,8 +4,8 @@
   "filesChecked": [
     {
       "path": "README.md",
-      "sha256": "57ff40b1eb5593b006bb26f3bbfe01c598d7a842d41e97835f8b46c9a6041ff8",
-      "bytes": 12209
+      "sha256": "aa3263c730620bdbdb1a87c62c980f7daa893fa43d940868a3c80e9e44716f73",
+      "bytes": 18834
     },
     {
       "path": "audit-public-files.py",
@@ -33,9 +33,44 @@
       "bytes": 220
     },
     {
+      "path": "files/etc/apt/apt.conf.d/99archive-vendor-maintenance",
+      "sha256": "886ea965dddaaaa4d0df0aa190c6aec9917195710a21aaea0fc20f4971ada6b6",
+      "bytes": 400
+    },
+    {
+      "path": "files/etc/apt/keyrings/archive-docker.asc",
+      "sha256": "1500c1f56fa9e26b9b8f42452a553675796ade0807cdce11975eb98170b3a570",
+      "bytes": 3817
+    },
+    {
+      "path": "files/etc/apt/keyrings/archive-nginx.asc",
+      "sha256": "55385da31d198fa6a5012d40ae98ecb272a6c4e8fffffba94719ffd3e87de37a",
+      "bytes": 11809
+    },
+    {
+      "path": "files/etc/apt/preferences.d/90-archive-vendor-branches",
+      "sha256": "c1cff870f322b855a62ca60796e161c257e758e2464b35859c8c91611e4f930f",
+      "bytes": 765
+    },
+    {
+      "path": "files/etc/apt/sources.list.d/archive-docker.sources",
+      "sha256": "0194d3abd89319c131d7c03254b650537524831ad3b802cdbc4add3bff16575d",
+      "bytes": 160
+    },
+    {
+      "path": "files/etc/apt/sources.list.d/archive-nginx.sources",
+      "sha256": "1e66d1449ab3d63510a52cc8ddf267eac21fdf25acc4860b1efed7d221a850dc",
+      "bytes": 151
+    },
+    {
       "path": "files/etc/cron.daily/logrotate",
       "sha256": "9e5b0ab545c61d60fe5d65bc304d2efc731ecf7563488997838fb51475c59d5c",
       "bytes": 128
+    },
+    {
+      "path": "files/etc/docker/daemon.json",
+      "sha256": "3adcfbfccdf3270f5770d4ec62ba04337f12a3d5f510a5541a08389f78afec01",
+      "bytes": 245
     },
     {
       "path": "files/etc/logrotate-longview.conf",
@@ -44,8 +79,13 @@
     },
     {
       "path": "files/etc/logrotate.conf",
-      "sha256": "26745137e89e48054e1104a98e97597e8bea4b0fd34a8b1d2dea272b2802398c",
-      "bytes": 732
+      "sha256": "a99068f8cfe848aef580fd21d7eba2e2d2314047e4db878f154e6c0b1d9e6ca7",
+      "bytes": 477
+    },
+    {
+      "path": "files/etc/logrotate.d/btmp",
+      "sha256": "9c500cfa3fc80dc236ec60d77da83057de28f2b95d90e1e981bda34010d403c4",
+      "bytes": 159
     },
     {
       "path": "files/etc/logrotate.d/nginx",
@@ -56,6 +96,11 @@
       "path": "files/etc/logrotate.d/rsyslog",
       "sha256": "6a944a599625cc1dc8cde3f2686af42b53eb79ea136d8ce44d31e83266596e5b",
       "bytes": 527
+    },
+    {
+      "path": "files/etc/logrotate.d/wtmp",
+      "sha256": "ee76bc40d52002a9a0e812682a93387d36032736a9b2f0495d1bfbb1ae997869",
+      "bytes": 130
     },
     {
       "path": "files/etc/systemd/journald.conf.d/30-archive-limits.conf",
@@ -134,18 +179,18 @@
     },
     {
       "path": "manifest.json",
-      "sha256": "7f9054e3d55a6baa922742452cce5bc572ec98ca63de08ca3bb906a6c2d01826",
-      "bytes": 9322
+      "sha256": "1cbc5f027e032dfe2b719bd2b5de69e6905a80e22a62c7e2f80c01cc6d8f0a59",
+      "bytes": 14647
     },
     {
       "path": "validation.json",
-      "sha256": "f7a5ffb65d56d240e6d15fdb07f9113f55b4653013dc4bac1c5124dd9733a9ab",
-      "bytes": 1068
+      "sha256": "230d087d9b794855bd7a2b1b1bef74e7cca30cc91d311734376b11a2980bf286",
+      "bytes": 1473
     },
     {
       "path": "verify-installed.py",
-      "sha256": "11b2605bd6ec0f9fa148def020bbd7cda77e7c6955427d859235a96cbe3d3be3",
-      "bytes": 2674
+      "sha256": "d34f2e7cbdb7ecc1ff943f9eb689970e67ef7e7c02f13c1ff1ec861680cf1422",
+      "bytes": 3251
     }
   ],
   "findings": [],

@@ -1,0 +1,10 @@
+// Ubuntu security origins remain configured by the existing system policy.
+// Vendor package changes require a tested maintenance window.
+Unattended-Upgrade::Package-Blacklist {
+    "^nginx($|-.*)";
+    "^docker-ce($|-.*)";
+    "^docker-(compose|buildx|scan)-plugin$";
+    "^containerd[.]io$";
+};
+Unattended-Upgrade::Automatic-Reboot "false";
+Unattended-Upgrade::Automatic-Reboot-WithUsers "false";

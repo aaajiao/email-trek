@@ -32,11 +32,16 @@ requests fit the export burst, then verifies429 and413 responses. Its forged-IP
 headers do not alter rate-limit keys. Run it only as an intentional maintenance
 test, not as a monitor or scheduled job.
 
-Validation on2026-10-22: syntax check and reload passed; Nginx active. The actual
-binary is1.20.2, while these directives also use1.10-compatible syntax. Normal
+Validation on2026-10-22: syntax check and reload passed; Nginx active. The tested
+binary was 1.20.2, while these directives also use1.10-compatible syntax. Normal
 pages returned200; invalid login401; limits returned429; body caps413;50 data
 requests passed the limiter and reached the parser400. ACME missing challenge
 returned404. Bytes outside managed sections matched their originals exactly.
+
+The host was subsequently upgraded to Nginx 1.30.6. Its preserved configuration
+passed syntax checks and normal HTTP/HTTPS health checks. The historical full
+401/429/413 and 50-request limiter results above are not presented as a fresh
+run against 1.30.6.
 
 The direct peer seen by the Email container after a static proxied request was
 172.22.0.1, represented as an IPv4-mapped socket in `/proc/net/tcp6`.

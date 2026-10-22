@@ -1,0 +1,13 @@
+{
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "50m",
+    "max-file": "3"
+  },
+  "storage-driver": "overlay2",
+  "features": {
+    "containerd-snapshotter": false
+  },
+  "firewall-backend": "iptables",
+  "bip": "172.17.0.1/16"
+}

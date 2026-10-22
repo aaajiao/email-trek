@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "capturedUtc": "2026-10-22T20:56:11.579016+00:00",
+  "capturedUtc": "2026-10-22T22:54:41.948538Z",
   "scope": "Identical shared host files for both app repositories; one installation per host",
   "serverMutationsDuringPackaging": false,
   "extraAlertingEnabled": false,
@@ -25,8 +25,8 @@
   "files": [
     {
       "path": "README.md",
-      "sha256": "57ff40b1eb5593b006bb26f3bbfe01c598d7a842d41e97835f8b46c9a6041ff8",
-      "bytes": 12209,
+      "sha256": "aa3263c730620bdbdb1a87c62c980f7daa893fa43d940868a3c80e9e44716f73",
+      "bytes": 18834,
       "installPath": null,
       "source": "Publication wrapper, documentation, or extracted minimal configuration/patch"
     },
@@ -64,14 +64,90 @@
       "source": "Public final host maintenance configuration",
       "sha256": "d98adfb02781b787617dd52e0a0a015a40db511ee3d913f69677bc02e72d2732",
       "bytes": 220,
-      "coverageNote": "Schedules available updates only; does not provide Ubuntu Legacy Support coverage."
+      "coverageNote": "Schedules eligible updates; actual support coverage is documented separately.",
+      "mode": "0644",
+      "uid": 0,
+      "gid": 0
+    },
+    {
+      "path": "files/etc/apt/apt.conf.d/99archive-vendor-maintenance",
+      "installPath": "/etc/apt/apt.conf.d/99archive-vendor-maintenance",
+      "source": "Exact final public host allowlist capture",
+      "sha256": "886ea965dddaaaa4d0df0aa190c6aec9917195710a21aaea0fc20f4971ada6b6",
+      "bytes": 400,
+      "mode": "0644",
+      "uid": 0,
+      "gid": 0
+    },
+    {
+      "path": "files/etc/apt/keyrings/archive-docker.asc",
+      "installPath": "/etc/apt/keyrings/archive-docker.asc",
+      "source": "Exact final public host allowlist capture",
+      "sha256": "1500c1f56fa9e26b9b8f42452a553675796ade0807cdce11975eb98170b3a570",
+      "bytes": 3817,
+      "mode": "0644",
+      "uid": 0,
+      "gid": 0
+    },
+    {
+      "path": "files/etc/apt/keyrings/archive-nginx.asc",
+      "installPath": "/etc/apt/keyrings/archive-nginx.asc",
+      "source": "Exact final public host allowlist capture",
+      "sha256": "55385da31d198fa6a5012d40ae98ecb272a6c4e8fffffba94719ffd3e87de37a",
+      "bytes": 11809,
+      "mode": "0644",
+      "uid": 0,
+      "gid": 0
+    },
+    {
+      "path": "files/etc/apt/preferences.d/90-archive-vendor-branches",
+      "installPath": "/etc/apt/preferences.d/90-archive-vendor-branches",
+      "source": "Exact final public host allowlist capture",
+      "sha256": "c1cff870f322b855a62ca60796e161c257e758e2464b35859c8c91611e4f930f",
+      "bytes": 765,
+      "mode": "0644",
+      "uid": 0,
+      "gid": 0
+    },
+    {
+      "path": "files/etc/apt/sources.list.d/archive-docker.sources",
+      "installPath": "/etc/apt/sources.list.d/archive-docker.sources",
+      "source": "Exact final public host allowlist capture",
+      "sha256": "0194d3abd89319c131d7c03254b650537524831ad3b802cdbc4add3bff16575d",
+      "bytes": 160,
+      "mode": "0644",
+      "uid": 0,
+      "gid": 0
+    },
+    {
+      "path": "files/etc/apt/sources.list.d/archive-nginx.sources",
+      "installPath": "/etc/apt/sources.list.d/archive-nginx.sources",
+      "source": "Exact final public host allowlist capture",
+      "sha256": "1e66d1449ab3d63510a52cc8ddf267eac21fdf25acc4860b1efed7d221a850dc",
+      "bytes": 151,
+      "mode": "0644",
+      "uid": 0,
+      "gid": 0
     },
     {
       "path": "files/etc/cron.daily/logrotate",
       "installPath": "/etc/cron.daily/logrotate",
       "source": "Public final host maintenance configuration",
       "sha256": "9e5b0ab545c61d60fe5d65bc304d2efc731ecf7563488997838fb51475c59d5c",
-      "bytes": 128
+      "bytes": 128,
+      "mode": "0755",
+      "uid": 0,
+      "gid": 0
+    },
+    {
+      "path": "files/etc/docker/daemon.json",
+      "installPath": "/etc/docker/daemon.json",
+      "source": "Exact final public host allowlist capture",
+      "sha256": "3adcfbfccdf3270f5770d4ec62ba04337f12a3d5f510a5541a08389f78afec01",
+      "bytes": 245,
+      "mode": "0644",
+      "uid": 0,
+      "gid": 0
     },
     {
       "path": "files/etc/logrotate-longview.conf",
@@ -79,14 +155,30 @@
       "bytes": 149,
       "installPath": "/etc/logrotate-longview.conf",
       "source": "Read-only live allowlist capture on 2026-10-22",
-      "installMode": "0o644"
+      "installMode": "0o644",
+      "mode": "0644",
+      "uid": 0,
+      "gid": 0
     },
     {
       "path": "files/etc/logrotate.conf",
       "installPath": "/etc/logrotate.conf",
       "source": "Public final host maintenance configuration",
-      "sha256": "26745137e89e48054e1104a98e97597e8bea4b0fd34a8b1d2dea272b2802398c",
-      "bytes": 732
+      "sha256": "a99068f8cfe848aef580fd21d7eba2e2d2314047e4db878f154e6c0b1d9e6ca7",
+      "bytes": 477,
+      "mode": "0644",
+      "uid": 0,
+      "gid": 0
+    },
+    {
+      "path": "files/etc/logrotate.d/btmp",
+      "installPath": "/etc/logrotate.d/btmp",
+      "source": "Operator-verified final public host configuration",
+      "sha256": "9c500cfa3fc80dc236ec60d77da83057de28f2b95d90e1e981bda34010d403c4",
+      "bytes": 159,
+      "mode": "0644",
+      "uid": 0,
+      "gid": 0
     },
     {
       "path": "files/etc/logrotate.d/nginx",
@@ -94,21 +186,40 @@
       "bytes": 405,
       "installPath": "/etc/logrotate.d/nginx",
       "source": "Read-only live allowlist capture on 2026-10-22",
-      "installMode": "0o644"
+      "installMode": "0o644",
+      "mode": "0644",
+      "uid": 0,
+      "gid": 0
     },
     {
       "path": "files/etc/logrotate.d/rsyslog",
       "installPath": "/etc/logrotate.d/rsyslog",
       "source": "Public final host maintenance configuration",
       "sha256": "6a944a599625cc1dc8cde3f2686af42b53eb79ea136d8ce44d31e83266596e5b",
-      "bytes": 527
+      "bytes": 527,
+      "mode": "0644",
+      "uid": 0,
+      "gid": 0
+    },
+    {
+      "path": "files/etc/logrotate.d/wtmp",
+      "installPath": "/etc/logrotate.d/wtmp",
+      "source": "Operator-verified final public host configuration",
+      "sha256": "ee76bc40d52002a9a0e812682a93387d36032736a9b2f0495d1bfbb1ae997869",
+      "bytes": 130,
+      "mode": "0644",
+      "uid": 0,
+      "gid": 0
     },
     {
       "path": "files/etc/systemd/journald.conf.d/30-archive-limits.conf",
       "installPath": "/etc/systemd/journald.conf.d/30-archive-limits.conf",
       "source": "Public final host maintenance configuration",
       "sha256": "186a894d4a9d96d5a3c764701cff4dc8cc695455559020c95ebbff0f3b4e1b85",
-      "bytes": 303
+      "bytes": 303,
+      "mode": "0644",
+      "uid": 0,
+      "gid": 0
     },
     {
       "path": "files/etc/systemd/system/archive-cert-renew.service",
@@ -116,7 +227,10 @@
       "bytes": 271,
       "installPath": "/etc/systemd/system/archive-cert-renew.service",
       "source": "Read-only live allowlist capture on 2026-10-22",
-      "installMode": "0o644"
+      "installMode": "0o644",
+      "mode": "0644",
+      "uid": 0,
+      "gid": 0
     },
     {
       "path": "files/etc/systemd/system/archive-cert-renew.timer",
@@ -124,21 +238,30 @@
       "bytes": 210,
       "installPath": "/etc/systemd/system/archive-cert-renew.timer",
       "source": "Read-only live allowlist capture on 2026-10-22",
-      "installMode": "0o644"
+      "installMode": "0o644",
+      "mode": "0644",
+      "uid": 0,
+      "gid": 0
     },
     {
       "path": "files/etc/systemd/system/archive-logrotate.service",
       "installPath": "/etc/systemd/system/archive-logrotate.service",
       "source": "Public final host maintenance configuration",
       "sha256": "f6eb78eebd110b066b5fc3f09e6c650a5512877efbe7295881880555af86a545",
-      "bytes": 178
+      "bytes": 178,
+      "mode": "0644",
+      "uid": 0,
+      "gid": 0
     },
     {
       "path": "files/etc/systemd/system/archive-logrotate.timer",
       "installPath": "/etc/systemd/system/archive-logrotate.timer",
       "source": "Public final host maintenance configuration",
       "sha256": "7323fad8b5d0a8825196b62e761406bd637af0dbcf9b8bea2259816024aef9e7",
-      "bytes": 191
+      "bytes": 191,
+      "mode": "0644",
+      "uid": 0,
+      "gid": 0
     },
     {
       "path": "files/etc/systemd/system/archive-port-guard.service",
@@ -146,7 +269,10 @@
       "bytes": 275,
       "installPath": "/etc/systemd/system/archive-port-guard.service",
       "source": "Read-only live allowlist capture on 2026-10-22",
-      "installMode": "0o644"
+      "installMode": "0o644",
+      "mode": "0644",
+      "uid": 0,
+      "gid": 0
     },
     {
       "path": "files/etc/systemd/system/docker.service.d/30-archive-port-guard.conf",
@@ -154,7 +280,10 @@
       "bytes": 136,
       "installPath": "/etc/systemd/system/docker.service.d/30-archive-port-guard.conf",
       "source": "Read-only live allowlist capture on 2026-10-22",
-      "installMode": "0o644"
+      "installMode": "0o644",
+      "mode": "0644",
+      "uid": 0,
+      "gid": 0
     },
     {
       "path": "files/etc/systemd/system/longview-logrotate.service",
@@ -162,7 +291,10 @@
       "bytes": 196,
       "installPath": "/etc/systemd/system/longview-logrotate.service",
       "source": "Read-only live allowlist capture on 2026-10-22",
-      "installMode": "0o644"
+      "installMode": "0o644",
+      "mode": "0644",
+      "uid": 0,
+      "gid": 0
     },
     {
       "path": "files/etc/systemd/system/longview-logrotate.timer",
@@ -170,7 +302,10 @@
       "bytes": 180,
       "installPath": "/etc/systemd/system/longview-logrotate.timer",
       "source": "Read-only live allowlist capture on 2026-10-22",
-      "installMode": "0o644"
+      "installMode": "0o644",
+      "mode": "0644",
+      "uid": 0,
+      "gid": 0
     },
     {
       "path": "files/usr/local/sbin/archive-cert-renew",
@@ -178,14 +313,20 @@
       "bytes": 822,
       "installPath": "/usr/local/sbin/archive-cert-renew",
       "source": "Read-only live allowlist capture on 2026-10-22",
-      "installMode": "0o750"
+      "installMode": "0o750",
+      "mode": "0750",
+      "uid": 0,
+      "gid": 0
     },
     {
       "path": "files/usr/local/sbin/archive-logrotate",
       "installPath": "/usr/local/sbin/archive-logrotate",
       "source": "Public final host maintenance configuration",
       "sha256": "03ac915dc746a2164366184f19febd75eed242304e5c11e2343f7d4cade9b323",
-      "bytes": 399
+      "bytes": 399,
+      "mode": "0755",
+      "uid": 0,
+      "gid": 0
     },
     {
       "path": "files/usr/local/sbin/archive-port-guard",
@@ -193,7 +334,10 @@
       "bytes": 1038,
       "installPath": "/usr/local/sbin/archive-port-guard",
       "source": "Read-only live allowlist capture on 2026-10-22",
-      "installMode": "0o750"
+      "installMode": "0o750",
+      "mode": "0750",
+      "uid": 0,
+      "gid": 0
     },
     {
       "path": "historical/fix-longview-host-logs-20261022.py",
@@ -218,8 +362,8 @@
     },
     {
       "path": "verify-installed.py",
-      "sha256": "11b2605bd6ec0f9fa148def020bbd7cda77e7c6955427d859235a96cbe3d3be3",
-      "bytes": 2674,
+      "sha256": "d34f2e7cbdb7ecc1ff943f9eb689970e67ef7e7c02f13c1ff1ec861680cf1422",
+      "bytes": 3251,
       "installPath": null,
       "source": "Publication wrapper, documentation, or extracted minimal configuration/patch"
     }
@@ -228,5 +372,48 @@
     "manifest.json",
     "validation.json",
     "sensitive-content-scan.json"
-  ]
+  ],
+  "finalOsVersion": "22.04",
+  "globalRotationScheduler": {
+    "archive-logrotate.timer": "enabled",
+    "logrotate.timer": "disabled"
+  },
+  "installedVersions": {
+    "os_point_release": "22.04.5",
+    "nginx_version": "1.30.6",
+    "docker_version": "29.9.2",
+    "containerd_version": "2.4.2",
+    "compose_version": "5.6.1",
+    "buildx_version": "0.38.1",
+    "node_version": "24.22.1",
+    "mongodb_version": "4.4.2"
+  },
+  "finalControlledRebootAccepted": true,
+  "ubuntuProAttached": false,
+  "automaticReboot": false,
+  "approvedCgroupNamespaceChange": {
+    "containers": [
+      "bot_crazyplayer_1",
+      "bot_mongodb_1",
+      "emailtrek_emailtrek_1",
+      "emailtrek_mongodb_1"
+    ],
+    "before": "host",
+    "after": "private",
+    "otherCollectedSecurityFieldsEqual": true
+  },
+  "acmeStagingDryRun": {
+    "passed": true,
+    "domains": [
+      "bot-gluttony.com",
+      "email-trek.t-h-e-s-p-a-c-e.com"
+    ],
+    "productionCertificateReplaced": false
+  },
+  "rollbackRetention": {
+    "fixedColdBusinessBackupGenerations": 1,
+    "oldRuntimeAndPackagesRetained": true,
+    "recurringBackupJobAdded": false,
+    "freeBytesAtCleanupCheckpoint": 10193616896
+  }
 }
