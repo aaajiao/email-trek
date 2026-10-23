@@ -47,5 +47,26 @@
   "offlineComparisonFixtures": 16,
   "finalAcmeStagingDryRunPassed": true,
   "productionCertificateReplacedByDryRun": false,
-  "fixedRollbackGenerationRetained": true
+  "fixedRollbackGenerationRetained": true,
+  "nginxLogrotateReopen20261023": {
+    "passed": true,
+    "checkedUTC": "2026-10-23T00:53:03.828568+00:00",
+    "scope": "Correct only Nginx postrotate log reopen hook for nginx.org packages; retention unchanged",
+    "beforeConfigurationSHA256": "9eb31a40a1a913683abb326406515accf70c7be934888b4c0320815a35ec6ac9",
+    "afterConfigurationSHA256": "83794ef2e41fc568193c0efa38ef69c6b63842b839787ca0e4d9f7681d262f52",
+    "globalLogrotateDebugExit": 0,
+    "controlledRotationExit": 0,
+    "globalLockAndStateReused": true,
+    "sameMasterAndWorkerProcesses": true,
+    "newAccessLogInode": true,
+    "allLogDescriptorsCurrent": true,
+    "newAccessLogReceivedGet": true,
+    "fourApplicationDatabaseContainerIDsUnchanged": true,
+    "httpsGetStatus": 200,
+    "tlsVerified": true,
+    "nginxRestarted": false,
+    "smtpCalls": 0,
+    "socketConnections": 0,
+    "reference": "https://nginx.org/en/docs/control.html#logs"
+  }
 }

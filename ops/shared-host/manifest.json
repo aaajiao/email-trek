@@ -25,8 +25,8 @@
   "files": [
     {
       "path": "README.md",
-      "sha256": "aa3263c730620bdbdb1a87c62c980f7daa893fa43d940868a3c80e9e44716f73",
-      "bytes": 18834,
+      "sha256": "c410f6c6532341a031e1c2dc4f70e217d509e1f72e13970842a0944200176e97",
+      "bytes": 20540,
       "installPath": null,
       "source": "Publication wrapper, documentation, or extracted minimal configuration/patch"
     },
@@ -182,8 +182,8 @@
     },
     {
       "path": "files/etc/logrotate.d/nginx",
-      "sha256": "9eb31a40a1a913683abb326406515accf70c7be934888b4c0320815a35ec6ac9",
-      "bytes": 405,
+      "sha256": "83794ef2e41fc568193c0efa38ef69c6b63842b839787ca0e4d9f7681d262f52",
+      "bytes": 391,
       "installPath": "/etc/logrotate.d/nginx",
       "source": "Read-only live allowlist capture on 2026-10-22",
       "installMode": "0o644",
@@ -415,5 +415,6 @@
     "oldRuntimeAndPackagesRetained": true,
     "recurringBackupJobAdded": false,
     "freeBytesAtCleanupCheckpoint": 10193616896
-  }
+  },
+  "updatedUtc": "2026-10-23T00:55:55.121931+00:00"
 }

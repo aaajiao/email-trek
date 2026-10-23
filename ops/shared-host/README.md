@@ -12,7 +12,7 @@ This package records the maintenance performed on 2026-10-22–23. Packaging it 
 | Public ports | `archive-port-guard`, service, Docker drop-in | Host-specific `eth0` IPv4/IPv6 rules protect FTP 21, app 4000/4001 and Mongo 35017/35018. Forward rules cover translated container ports 27017/3000/4000; established forwarded connections return. Guard is re-applied after Docker starts. HTTP/HTTPS and SSH are not blocked by these rules. |
 | Container logs | `docker/compose-logging.*.yaml` | All four app/Mongo containers use `json-file`, `max-size: 10m`, `max-file: 3`. Limits take effect when each container is recreated with its original image/config/data mounts. |
 | Host Docker default | `docker/daemon-logging.fragment.json` | Existing host fallback is `json-file`, `50m`, three files. This is a JSON fragment to merge, never a replacement for the complete daemon configuration. Per-container 10m settings take precedence. |
-| Host and Nginx logs | `archive-logrotate`, matching service/timer, global/rsyslog/Nginx rules and daily cron entry | The hourly timer and daily cron use one `flock` and `/var/lib/logrotate/status`. Nginx rotates daily or above 10MiB when checked, retaining fourteen files; selected system logs use 20MiB checks. Compression and existing reopen hooks are preserved. These are periodic checks, not continuous hard size caps. |
+| Host and Nginx logs | `archive-logrotate`, matching service/timer, global/rsyslog/Nginx rules and daily cron entry | The hourly timer and daily cron use one `flock` and `/var/lib/logrotate/status`. Nginx rotates daily or above 10MiB when checked, retaining fourteen files; selected system logs use 20MiB checks. Compression is retained; the Nginx hook uses its native log-reopen command while the service is active. These are periodic checks, not continuous hard size caps. |
 | Longview UID handling | `longview/unmapped-uid.patch` | Preserves process metrics for container UIDs absent from host passwd: `uid-NNN`; missing UID becomes `unknown`. The historical source hash is pinned below. No Longview account setting changes. |
 | Longview logs | Dedicated configuration and service/timer | Hourly check; rotate daily or above 10MiB at check time, seven rotated files, compression, copytruncate, separate state. This is not a strict continuous size cap or guaranteed seven-day retention. The configuration is outside `/etc/logrotate.d` to avoid duplicate daily handling. |
 | System journal | `files/etc/systemd/journald.conf.d/30-archive-limits.conf` | Runtime storage target 32MiB, persistent storage target 128MiB, bounded individual files and seven-day retention. Effective after the coordinated host reboot; existing journald storage mode is preserved. |
@@ -90,9 +90,9 @@ Five obsolete SSH directives that were already ignored were commented out. At th
 | Docker Compose plugin | 5.6.1 |
 | Buildx plugin | 0.38.1 |
 | Application Node runtime | 24.22.1 |
-| MongoDB | 4.4.2, unchanged |
+| MongoDB | 8.0.34, FCV 8.0 |
 
-The OS and host dependencies were updated; MongoDB and application driver/library major versions were not upgraded by this host migration. MongoDB remains a separate maintenance item. Prefer maintained dependency versions with necessary source compatibility changes rather than retaining old versions by default.
+The host migration initially preserved MongoDB4.4. A separately tested and accepted database upgrade subsequently moved both projects to MongoDB8.0.34 with driver7.7.0 (Bot uses Mongoose9.11.3). See the [database deployment record](../mongodb/DEPLOYMENT.md) for data checks and the final retirement decision.
 
 The six vendor-policy files use official Docker/Nginx Jammy repositories with per-source `Signed-By` keyrings. Version pins permit Nginx `1.30.*`, Docker Engine `29.*`, containerd `2.*`, Compose `5.*` and Buildx `0.*`; rejecting fallback pins prevent an unreviewed branch change. Review these limits before their branches cease to receive relevant fixes. Ubuntu Pro is not attached. This policy does not create ESM entitlement or certify all legacy application dependencies.
 
@@ -100,7 +100,7 @@ The six vendor-policy files use official Docker/Nginx Jammy repositories with pe
 
 Use the plugin command `docker compose` (for example `docker compose version` or a reviewed `docker compose -p <project> -f <private-file> config --quiet`). Keep the complete deployment Compose files and environments private: a normal rendered `config` output can contain credentials. The public `docker/compose-logging.*.yaml` files are logging fragments, not complete deployable projects.
 
-Docker 29 used fresh container metadata and recreated exactly four containers from the existing image IDs and private configuration, with their existing application/data bind mounts, network addresses and log bounds. The reviewed security-setting change is limited to those four containers: cgroup namespace mode changed from `host` to `private`; the other collected security fields stayed equal. This retains the more isolated cgroup v2 default documented by [Docker](https://docs.docker.com/engine/containers/runmetrics/#running-docker-on-cgroup-v2). Retained old-engine metadata and rollback backups stay private. A new container ID is expected; altered image/configuration/data is not. Never import an old engine's internal container metadata blindly into a new daemon.
+Docker 29 used fresh container metadata and recreated exactly four containers from the existing image IDs and private configuration, with their existing application/data bind mounts, network addresses and log bounds. The reviewed security-setting change is limited to those four containers: cgroup namespace mode changed from `host` to `private`; the other collected security fields stayed equal. This retains the more isolated cgroup v2 default documented by [Docker](https://docs.docker.com/engine/containers/runmetrics/#running-docker-on-cgroup-v2). Old-engine metadata and cold backup staging were retained through validation and retired during final cleanup; small configuration and audit records remain private. A new container ID is expected; altered image/configuration/data is not. Never import an old engine's internal container metadata blindly into a new daemon.
 
 The exact reviewed daemon settings are included as a host reference. Merge only appropriate settings into another existing daemon configuration, validate it with `dockerd --validate --config-file=...`, and coordinate any daemon restart. The default bridge address and iptables backend are host-specific; do not overwrite unrelated networking or authentication settings.
 
@@ -108,6 +108,39 @@ The final controlled reboot passed 410 reviewed application/data/configuration c
 
 After reviewed backups, 194 explicitly selected obsolete packages were removed, recovering 1,890,033,664 bytes without changing protected application configuration or the four running containers. The valid Ubuntu 5.15 fallback kernel links and the Linode 7.2 boot-kernel configuration were retained.
 
-## Local rollback retention
+## Final daily-maintenance acceptance
 
-This maintenance retains one fixed-generation cold application/data backup, the old Docker/containerd runtime metadata and the old package rollback set. Redundant image-export and transfer archives were removed after acceptance; the remaining free disk space at that checkpoint was 10,193,616,896 bytes (about 9.5 GiB). Private backups and application credentials stay outside Git. No recurring backup job or automatic generation accumulation was added. Verify a replacement backup before retiring the previous generation during future maintenance; this policy does not change any existing provider-managed backups.
+The final check on 2026-10-23 confirmed certificate-renewal, log-rotation and Ubuntu
+security-update timers, service autostart, the port guard and time synchronization.
+No failed system units, incomplete package transactions or pending upgrades were
+reported, and no reboot was required. Existing Longview remains the monitoring
+channel; no new Codex alerts, mailing recipients or backup scheduler were added.
+
+The nginx.org package does not implement the old init-script `rotate` action.
+The Nginx postrotate hook now runs `nginx -s reopen` while the service is active.
+A controlled real rotation, using the shared lock and state file, confirmed that
+all log descriptors moved to the new files and a subsequent HTTPS GET was logged.
+Master/worker processes and application containers were not restarted.
+
+Fail2Ban retained its one-day history policy and existing ban records. A one-time
+SQLite compaction reclaimed free pages (129,550,336 to 658,432 bytes); integrity
+checks and the running service passed. The obsolete dated database backup and
+the temporary safety copy were removed after validation. No recurring VACUUM job
+was introduced. Application PM2 file logging remains disabled in favor of the
+bounded container logs.
+
+## Completed staging cleanup
+
+After successful upgrade acceptance, the owner requested retirement of the old
+local copies. The inactive original MongoDB4.4 directories/image, old Docker and
+containerd metadata, the cold business-data staging archive, downloaded installer
+packages, and the duplicate media staging tree were removed after exact reference
+and identity checks. Active data, media, current runtime and private configuration
+were preserved. The live media tree's full hash and file count matched before and
+after cleanup. The final free disk space was approximately 13.83 GB.
+
+Small configuration/audit records and provider-managed Linode backups remain;
+no recurring local backup generations accumulate. The retired local copies are
+no longer recovery sources. Any future recovery must preserve current mail budgets
+and reconcile writes made after the selected backup, using compatible database
+and application versions.

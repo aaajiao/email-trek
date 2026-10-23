@@ -14,7 +14,8 @@
 		fi \
 	endscript
 	postrotate
-		invoke-rc.d nginx rotate >/dev/null 2>&1 || true
-		passenger-config reopen-logs >/dev/null 2>&1 || true
+		if /bin/systemctl is-active --quiet nginx.service; then
+			/usr/sbin/nginx -s reopen
+		fi
 	endscript
 }

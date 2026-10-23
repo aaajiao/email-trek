@@ -4,8 +4,8 @@
   "filesChecked": [
     {
       "path": "README.md",
-      "sha256": "aa3263c730620bdbdb1a87c62c980f7daa893fa43d940868a3c80e9e44716f73",
-      "bytes": 18834
+      "sha256": "c410f6c6532341a031e1c2dc4f70e217d509e1f72e13970842a0944200176e97",
+      "bytes": 20540
     },
     {
       "path": "audit-public-files.py",
@@ -89,8 +89,8 @@
     },
     {
       "path": "files/etc/logrotate.d/nginx",
-      "sha256": "9eb31a40a1a913683abb326406515accf70c7be934888b4c0320815a35ec6ac9",
-      "bytes": 405
+      "sha256": "83794ef2e41fc568193c0efa38ef69c6b63842b839787ca0e4d9f7681d262f52",
+      "bytes": 391
     },
     {
       "path": "files/etc/logrotate.d/rsyslog",
@@ -179,13 +179,13 @@
     },
     {
       "path": "manifest.json",
-      "sha256": "1cbc5f027e032dfe2b719bd2b5de69e6905a80e22a62c7e2f80c01cc6d8f0a59",
-      "bytes": 14647
+      "sha256": "089ecea5fb6e3a39ced8de2b4de2dbe8eb7ff3c7573b5fb749e65d98911936c2",
+      "bytes": 14699
     },
     {
       "path": "validation.json",
-      "sha256": "230d087d9b794855bd7a2b1b1bef74e7cca30cc91d311734376b11a2980bf286",
-      "bytes": 1473
+      "sha256": "b532e0b52037c0afb06c77406785b21b672186e6e79f1faca8f09c99bd5e715f",
+      "bytes": 2399
     },
     {
       "path": "verify-installed.py",

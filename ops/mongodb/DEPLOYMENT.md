@@ -3,8 +3,8 @@
 Both production databases completed the reviewed six-stage migration on fresh
 isolated copies and are running MongoDB8.0.34 with FCV8.0. All original business
 BSON, natural order, collection options, UUIDs, indexes and authentication metadata
-passed the preserved-baseline comparisons. The original data directories remain
-unchanged. Correct-password authentication succeeded; wrong-password and anonymous
+passed the preserved-baseline comparisons. The original data directories were verified unchanged during the migration
+and subsequently retired after acceptance as recorded below. Correct-password authentication succeeded; wrong-password and anonymous
 authentication were rejected.
 
 Application and public acceptance passed:
@@ -34,20 +34,31 @@ available memory at its end. All four application/database containers remained
 running with zero automatic restarts. Reviewed intermediate database/verifier
 images and transfer archives were removed, reclaiming approximately 3.06 GB and
 leaving approximately 7.02 GB free. Active data and the previous recovery generation
-were retained.
+were retained at the migration handoff; the owner subsequently approved the
+limited retirement below.
 
 The tools here are generic. They do not include the private production cutover
 wrapper, database contents, credentials, private Compose files or host paths.
 A rehearsal copy is not interchangeable with the final stopped-writer snapshot.
 
-Keep one rollback generation: the untouched original databases, their matching
-old database image, the corresponding application/runtime and private configuration
-snapshot, plus the migration verification records. Keep these outside Git. Never
-start an old MongoDB binary against the upgraded data directories, and never allow
-old and new writers to use the same directory.
+## Owner-approved retirement after acceptance
 
-Public service has resumed. Reverting to the old snapshot would discard subsequent
-writes; a reviewed reconciliation/recovery plan is required instead. Mail budgets, consumed
-one-shot run IDs and other durable application state must remain current through
-any rollback. Remove excess failed rehearsals and intermediate images only after
-acceptance and an exact reference check; keep the one approved rollback generation.
+On 2026-10-23 the owner explicitly requested removal of the inactive original
+databases after the successful upgrade. Both original MongoDB4.4 data directories
+and the unreferenced MongoDB4.4.2 image were removed. Before deletion, their hashes
+matched the frozen migration baseline; all container mounts, Compose entries,
+process file references and nested mounts were checked to exclude active use.
+
+The cleanup did not stop or recreate a service. The active MongoDB8 data and
+application configuration were preserved, and the container identities stayed
+unchanged. This additional cleanup reclaimed approximately 1.55 GB, leaving
+approximately 8.57 GB free. Migration audit records and existing Linode backups were preserved; no new
+database backup was made. Final host housekeeping subsequently retired the
+remaining old runtime/cold-data staging copies and duplicate media backup; see
+[the shared-host record](../shared-host/README.md#completed-staging-cleanup).
+The original uncompressed data directories are no longer available for rollback.
+
+Post-cleanup real login, all 7 Bot projects/83 items/7 player responses and the
+first/last 2,000-record Email Trek exports passed with unchanged content hashes.
+Keep current mail budgets and new business writes intact in any future recovery;
+never point an older MongoDB binary at the active upgraded database directories.
