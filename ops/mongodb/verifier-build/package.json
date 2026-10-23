@@ -1,0 +1,7 @@
+{
+  "name": "archive-mongodb-readonly-verifier",
+  "version": "1.0.0",
+  "private": true,
+  "engines": { "node": "24.22.1" },
+  "dependencies": { "mongodb": "7.7.0" }
+}

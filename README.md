@@ -73,13 +73,15 @@ The original artwork description above is retained as historical context. Curren
 `VERIFIED` means an RCPT acceptance response was observed; it does not establish that an address belongs to a real mailbox or that a message arrived. `SENT` means the sending provider accepted the message, not that it reached the inbox, was read, or was opened.
 
 
-Use Node 24.22.1 and Yarn 1.22.22. `yarn.lock` is authoritative; do not regenerate it with an unrestricted dependency upgrade. Run `yarn install --frozen-lockfile --ignore-optional`, then `yarn test` (24 regression cases plus 22 pacing cases). On Linux, `REAL_FLOCK=1 yarn test:pacing` exercises the actual kernel lock; other runs use an injected lock while testing state logic. Copy `config.example.js` to a private `config.js` and supply the variables shown in `.env.example` through your deployment environment. The application does not load `.env` itself.
+Use Node 24.22.1 and Yarn 1.22.22. `yarn.lock` is authoritative; do not regenerate it with an unrestricted dependency upgrade. Run `yarn install --frozen-lockfile --ignore-optional`, then `yarn test` (24 application regression cases, 22 pacing cases and 10 MongoDB driver cases). On Linux, `REAL_FLOCK=1 yarn test:pacing` exercises the actual kernel lock; other runs use an injected lock while testing state logic. Copy `config.example.js` to a private `config.js` and supply the variables shown in `.env.example` through your deployment environment. The application does not load `.env` itself.
 
 Production uses one process, a persistent private `/app/maintenance-state` directory (0700), an authenticated MongoDB connection, and a reverse proxy that overwrites `X-Real-IP`. PM2 file watching is disabled; production changes use a controlled container recreation rather than watching the dependency tree. Configure only the exact direct proxy peer in `EMAILTREK_TRUSTED_PROXY_IPS`. State files are private, atomic and bounded; do not delete them to clear quotas. The process must not run before storage migration is finalized.
 
 ### Storage and historical meaning
 
 The online collection `mail_recent_v1` retains the latest 100,000 records with a 128 MiB cap. `mail_totals_v1` permanently retains cumulative totals, separates historical and new counts, and uses one durable pending record to recover interrupted writes. Run one writer process, not a cluster.
+
+The source now pins MongoDB Node driver 7.7.0 for a separately reviewed server upgrade. The write protocol, record schema, counters and retention window are unchanged. See [MongoDB driver compatibility](docs/mongodb-driver.md) for the driver changes, isolated tests and deployment limits; a source change alone does not upgrade the running database.
 
 The 99,249,396-record baseline ended at cutoff `6ada58640000000000000000` (2026-10-22 18:39:32 UTC). Statistics and 10,453 representative historical samples were archived privately; complete legacy database contents are intentionally not in this repository. A small post-cutoff tail is archived separately before migration.
 
@@ -97,7 +99,7 @@ Visitor-triggered automatic delivery is disabled by default. It uses only an exp
 
 Each normally completed attempt records one final status for the actual recipient. A confirmed SMTP acceptance contributes `sent`; an unconfirmed transport outcome retains only the prior verification fact, marks the budget `uncertain`, and is not automatically resent. SMTP and database commits cannot be atomic on this stack, so a crash can leave an unconfirmed result. An explicit single-recipient SMTP envelope prevents inherited cc/bcc/custom envelope recipients from bypassing the destination rule. Homepage records remain masked.
 
-See `docs/source-build-node24.md`, `docs/runtime-maintenance.md` and `ops/` for runtime compatibility, HTTPS renewal, firewall boundaries and bounded logs. Application major versions and MongoDB remain unchanged; this maintenance is not a complete audit of every legacy dependency. Never commit runtime credentials, samples, database files, generated SVGs or private retained-server images.
+See `docs/source-build-node24.md`, `docs/runtime-maintenance.md` and `ops/` for runtime compatibility, HTTPS renewal, firewall boundaries and bounded logs. The driver update is limited to MongoDB and its required dependency subtree; unrelated application packages remain at their existing lockfile versions. This maintenance is not a complete audit of every legacy dependency. Never commit runtime credentials, samples, database files, generated SVGs or private retained-server images.
 
 ### Completed legacy-data retirement (2026-10-22)
 

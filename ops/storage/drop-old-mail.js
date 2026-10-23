@@ -165,7 +165,7 @@ async function main(argv = process.argv.slice(2)) {
   const cfg = require('/app/config')
   ensure(cfg.MONGO_DB === 'emailtrek', 'WRONG_DATABASE_CONFIGURATION')
   const { MongoClient } = require('/app/node_modules/mongodb')
-  const client = new MongoClient(cfg.MONGO_ADDR, { useNewUrlParser: true, useUnifiedTopology: true, poolSize: 1, serverSelectionTimeoutMS: 10000, socketTimeoutMS: 90000 })
+  const client = new MongoClient(cfg.MONGO_ADDR, { maxPoolSize: 1, serverSelectionTimeoutMS: 10000, socketTimeoutMS: 90000 })
   const progress = { dropAttempted: false, dropped: false }
   try {
     await client.connect()

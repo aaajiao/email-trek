@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "procedure": "After each actual FCV upgrade settles, cleanly stop and remove only that stage container, restart the same target on the same pinned binary, verify settled target FCV, then full content and validation checks before clean shutdown for the next stage.",
+  "originalSourceWritable": false,
+  "repairOrIndexRebuild": false,
+  "additionalFcvMutation": false,
+  "requiresZeroFinalWarnings": true,
+  "offlineTests": 40,
+  "verifierImageUnchanged": "sha256:8fca6c1f9a84e9ef0190f58105820c6bc32e95830b1eb21e0dbdb926248418bf",
+  "sources": [
+    {
+      "url": "https://www.mongodb.com/docs/v8.0/tutorial/manage-mongodb-processes/",
+      "fact": "Clean shutdown completes pending operations, flushes data, closes files; normal starts use specified dbpath. SIGTERM is a supported clean-stop method."
+    },
+    {
+      "url": "https://www.mongodb.com/docs/v7.0/release-notes/7.0-upgrade-standalone/",
+      "fact": "Supported standalone upgrade includes clean shutdown, replacing binaries, and explicit FCV activation."
+    }
+  ],
+  "evidenceBoundary": "The extra same-binary restart is an operator recovery verification step, not an official mandatory post-FCV upgrade instruction. Internal checkpoints/recovery may change physical file bytes; exact logical BSON and metadata checks remain required."
+}

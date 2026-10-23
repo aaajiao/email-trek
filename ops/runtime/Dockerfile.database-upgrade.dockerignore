@@ -1,0 +1,11 @@
+*
+!ops/
+!ops/runtime/
+!ops/runtime/Dockerfile.database-upgrade
+!ops/runtime/Dockerfile.database-upgrade.dockerignore
+!package.json
+!yarn.lock
+!lib/
+!lib/mongo.js
+!lib/boundedStore.js
+!lib/migrate-storage.js

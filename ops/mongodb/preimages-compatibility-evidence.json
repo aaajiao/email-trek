@@ -1,0 +1,44 @@
+{
+  "schema": 1,
+  "namespace": "config.system.preimages",
+  "introducedBy": "MongoDB 6.0 FCV transition",
+  "officialSources": [
+    {
+      "url": "https://github.com/mongodb/mongo/blob/r6.0.28/src/mongo/db/commands/set_feature_compatibility_version_command.cpp#L739-L743",
+      "fact": "FCV upgrade creates pre-images collection when feature enabled"
+    },
+    {
+      "url": "https://github.com/mongodb/mongo/blob/r6.0.28/src/mongo/db/catalog/create_collection.cpp#L748-L763",
+      "fact": "Creation uses legacy clustered _id collection options"
+    },
+    {
+      "url": "https://github.com/mongodb/mongo/blob/r6.0.28/src/mongo/db/catalog/clustered_collection_util.cpp#L54-L59",
+      "fact": "Legacy clustered key is _id:1, unique true, name _id_"
+    },
+    {
+      "url": "https://www.mongodb.com/docs/manual/changestreams/",
+      "fact": "Pre/post images introduced in MongoDB6.0; internal namespace is config.system.preimages"
+    }
+  ],
+  "fixedVerifierExpectedOptions": {
+    "clusteredIndex": true
+  },
+  "fixedVerifierExpectedIndexes": [
+    {
+      "v": 2,
+      "key": {
+        "_id": 1
+      },
+      "name": "_id_",
+      "unique": true,
+      "clustered": true
+    }
+  ],
+  "optionsSha256": "e567883d282199117b4c9c6b52fb90bd3fb0aec232af2c2b369a8e3997ef1ad9",
+  "indexesSha256": "d21bdfdc381a9b217c7917e4af14bc7275eb54b668b93eb6a9a8c73a1a1f285a",
+  "policy": "Only if absent from original baseline; exact pinned Mongo6/7/8 binary and FCV6/7/8; zero records/bytes and empty content/natural hashes; noncapped; exact options/index hashes and count1; UUID hash; validation valid with no warnings. Existing baseline namespace remains strict. All other additions/removals fail.",
+  "actualRehearsalDiagnosticMatched": true,
+  "pureFunctionTests": 36,
+  "productionChanged": false,
+  "metadataHashesCalculatedWithVerifierImage": "sha256:4ae1f8a3c230c64fa6c157bbf85e7bdd6ff44af32ab9faba67b1de518fad72e6"
+}

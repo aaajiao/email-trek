@@ -1,5 +1,7 @@
 # Node runtime maintenance
 
+This document records the earlier runtime-only migration. The later [MongoDB driver adaptation](mongodb-driver.md) changes the source lockfile; the retained-image recipes below continue to copy the old installed dependencies and must not be mistaken for a driver-7 source build.
+
 This maintenance changes the Node runtime while preserving the installed application dependency versions and existing build artifacts. The baseline is official Node 24.22.1 Alpine, pinned to `sha256:06d7adf3e0ef61a13f1d28682726366f97a15aa1888c934d3ecec86c33918b53`. The [21 October 2026 Node security release](https://nodejs.org/en/blog/vulnerability/october-2026-security-releases) identifies 24.22.1 as a patched release, including the Brotli decoder RCE fix. This statement concerns that runtime patch baseline; it does not certify the old application packages, MongoDB, Docker, or host OS as secure.
 
 ## Two different build claims

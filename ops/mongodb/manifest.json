@@ -1,0 +1,81 @@
+{
+  "schema": 1,
+  "scope": "Generic reviewed copy migration; no production paths, credentials or data; not a deployment bundle",
+  "files": [
+    {
+      "path": "DEPLOYMENT.md",
+      "sha256": "881df5eb52c80339f8cdc6667d4c4a408f357911a7240354fa1980ca74324ffe",
+      "bytes": 3421
+    },
+    {
+      "path": "PRODUCTION-NOTES.md",
+      "sha256": "54340fd4b8a1436968eade4b5ef5f517299c5fd97591b40373dc033a3b29974f",
+      "bytes": 2471
+    },
+    {
+      "path": "README.md",
+      "sha256": "7f3477c2d158a839bc231b94426a7adbd0f05f14fe985b3c368a2d19006d74ba",
+      "bytes": 9419
+    },
+    {
+      "path": "image-chain.json",
+      "sha256": "a566418b4b676c7acb8cdd3894dd38a743afb414f9190bb9c06dd6c6592789da",
+      "bytes": 2135
+    },
+    {
+      "path": "mid-fcv-restart-evidence.json",
+      "sha256": "749a94fc32206beb358d4de3f2c0b192669615644db06f2d70e3ebd4d957bf92",
+      "bytes": 1326
+    },
+    {
+      "path": "migrate-copy.py",
+      "sha256": "16acfe307e49bcca0cb371f8508f3a9a383f8d5b6893d2430cfd3d4d4043e59e",
+      "bytes": 26437
+    },
+    {
+      "path": "preimages-compatibility-evidence.json",
+      "sha256": "a43625ecc4a4cd7e50a5b9d7552708b6f10fe79e8e6a3cd858ee99d74711bb7a",
+      "bytes": 1921
+    },
+    {
+      "path": "test-migrate-copy.py",
+      "sha256": "8624afabcd6c229a06852deadbdfe9d32407a3c373137cbc316e5ab516d59046",
+      "bytes": 8347
+    },
+    {
+      "path": "validation-transient-evidence.json",
+      "sha256": "44e80ffd5519aa4dea0efd3ebd2587cd2ee99b317805953b4fdc8e50e6026922",
+      "bytes": 767
+    },
+    {
+      "path": "verifier-build/.dockerignore",
+      "sha256": "794bff7d7057bfecbfe2080a75760c24f4bf32b4d802c6528bcceb49946e79b5",
+      "bytes": 77
+    },
+    {
+      "path": "verifier-build/Dockerfile",
+      "sha256": "0748fe217ff0c6248492ec5c8b7a689fd7298dc083af39b18a06468f92df7eea",
+      "bytes": 385
+    },
+    {
+      "path": "verifier-build/copy-data.js",
+      "sha256": "5e38979271afb523c6f0dce098d352898e2e82c98044c64ace1c5290757c3785",
+      "bytes": 3571
+    },
+    {
+      "path": "verifier-build/package-lock.json",
+      "sha256": "ff62093ebb78833b4f4d4be1693294ce947fb3dbd2dff0586c2898a675d32662",
+      "bytes": 5760
+    },
+    {
+      "path": "verifier-build/package.json",
+      "sha256": "e974a942b4089048a38ccf5864f6f700e42f5c83d02f04215981352501cda729",
+      "bytes": 169
+    },
+    {
+      "path": "verifier-build/verify-data.js",
+      "sha256": "e2dab71061b6d938bd7b40a74b738e4083cfa0cfe031d9ab2ebec8f5438f8165",
+      "bytes": 13033
+    }
+  ]
+}

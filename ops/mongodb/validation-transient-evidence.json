@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "change": "Bounded retry only for the exact MongoDB WiredTiger EBUSY validation warning",
+  "officialSource": "https://github.com/mongodb/mongo/blob/r6.0.28/src/mongo/db/storage/wiredtiger/wiredtiger_record_store.cpp#L1820-L1830",
+  "maximumFullValidationAttempts": 3,
+  "delayMilliseconds": [
+    500,
+    1000
+  ],
+  "finalAcceptance": "valid true, no errors, zero warnings; unrelated or mixed warnings never retried or ignored",
+  "logs": "Row extra fields record retry count and SHA256 of first warning array, no raw messages",
+  "actualRehearsalWarningLogId": 22408,
+  "productionChanged": false,
+  "verifierImage": "sha256:8fca6c1f9a84e9ef0190f58105820c6bc32e95830b1eb21e0dbdb926248418bf",
+  "nodeSelfTests": 16,
+  "migrationPureTests": 36
+}

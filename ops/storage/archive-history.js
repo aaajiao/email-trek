@@ -80,7 +80,7 @@ async function extract(db, options = {}) {
     },
   }
   const samples = new Map(), memberships = []
-  const key = id => id && id._bsontype === 'ObjectID' ? 'oid:' + id.toHexString() : typeof id + ':' + JSON.stringify(id)
+  const key = id => id instanceof ObjectId ? 'oid:' + id.toHexString() : typeof id + ':' + JSON.stringify(id)
   function add(row, method, group) {
     if (Buffer.byteLength(JSON.stringify(row)) > 32768) throw new Error('Oversized historical sample; review before export')
     const id = key(row._id)
@@ -116,8 +116,8 @@ async function extract(db, options = {}) {
 async function main() {
   if (process.env.EMAIL_ARCHIVE_EXECUTE !== '1') throw new Error('Explicit execution switch required; full scan was not started')
   const cfg = require('/app/config')
-  const client = new MongoClient(cfg.MONGO_ADDR, { useNewUrlParser: true, useUnifiedTopology: true,
-    poolSize: 1, serverSelectionTimeoutMS: 10000, socketTimeoutMS: 1860000 })
+  const client = new MongoClient(cfg.MONGO_ADDR, {
+    maxPoolSize: 1, serverSelectionTimeoutMS: 10000, socketTimeoutMS: 1860000 })
   try {
     const options = JSON.parse(process.env.EMAIL_ARCHIVE_OPTIONS || '{}')
     if (!/^[a-f0-9]{24}$/i.test(options.cutoff || '')) throw new Error('An explicitly coordinated cutoff is required')

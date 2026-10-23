@@ -204,9 +204,9 @@ test('socket init shares history, does not await statistics, and handles disconn
   statsResolve({not_exists:5,verified:2,sent:0});await sleep(5);assert(b.out.some(x=>x.e==='stats'));b.c.disconnect();assert(controller.queue._stop);controller.close()
 })
 test('largest permitted BSON detail stays below 400 bytes and fits 100k within 128MiB', () => {
-  const BSON=require('bson'),codec=new BSON(),bounded=require(path.join(root,'lib/boundedStore'))
+  const { BSON }=require('mongodb'),bounded=require(path.join(root,'lib/boundedStore'))
   const row=bounded.record({to:'x'.repeat(254),status:'not_exists',created_at:new Date()})
-  const bytes=codec.serialize(row).length;assert(bytes<400);assert(bytes*100000<bounded.SIZE)
+  const bytes=BSON.serialize(row).length;assert(bytes<400);assert(bytes*100000<bounded.SIZE)
 })
 test('bounded store replays every commit/detail/clear crash boundary exactly once', async () => {
   const fake=require('./fake-mongo'),bounded=require(path.join(root,'lib/boundedStore'))
@@ -279,9 +279,9 @@ test('HTTP startup is independent of a Google DNS probe', async () => {
     './lib/setExpressRouter':()=>{},'./lib/setIOEvents':()=>{},'./lib/mail':class Mail{},'./lib/mongo':async()=>({}),'./config':{APP_PORT:3000},debug:()=>()=>{}})
   await sleep(5);assert.strictEqual(listens,1)
 })
-test('PM2 keeps watch but excludes persistent state writes', () => {
+test('PM2 keeps one process with production file watching disabled', () => {
   const pm=JSON.parse(fs.readFileSync(path.join(root,'pm2.json'))).apps[0]
-  assert.strictEqual(pm.watch,true);assert(pm.ignore_watch.includes('maintenance-state'));assert.strictEqual(pm.instances,'1')
+  assert.strictEqual(pm.watch,false);assert(pm.ignore_watch.includes('maintenance-state'));assert.strictEqual(pm.instances,'1')
 })
 
 ;(async()=>{const results=[];for(const t of tests){try{await t.fn();results.push({name:t.name,pass:true})}catch(e){results.push({name:t.name,pass:false,error:e.stack});console.log(JSON.stringify({node:process.version,results},null,2));process.exitCode=1;return}}console.log(JSON.stringify({node:process.version,network:'isolated; no production DB/SMTP',results},null,2))})().catch(e=>{console.error(e);process.exitCode=1})

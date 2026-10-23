@@ -36,7 +36,7 @@ class Cursor{
 }
 function create(initial={}){
  const rows=new Map(Object.entries(initial).map(([k,v])=>[k,v.map(copy)])),options=new Map();let fail=null
- const api={rows,options,capOverride:null,failAt:(name,after=false)=>{fail={name,after}},
+ const api={rows,options,calls:[],capOverride:null,failAt:(name,after=false)=>{fail={name,after}},
   trip(name,after){if(fail&&fail.name===name&&fail.after===after){fail=null;throw new Error('Simulated crash '+name)}},
   listCollections(query){return{toArray:async()=>options.has(query.name)?[{name:query.name,options:copy(options.get(query.name))}]:[]}},
   async createCollection(name,opt){if(rows.has(name))throw new Error('Namespace exists');rows.set(name,[]);options.set(name,copy(opt));return api.collection(name)},
@@ -44,8 +44,8 @@ function create(initial={}){
    find(query={}){return new Cursor(data.filter(r=>match(r,query)))},async findOne(query){return copy(data.find(r=>match(r,query))||null)},
    async insertOne(row){api.trip(name+'.insert',false);if(data.some(r=>String(r._id)===String(row._id))){const e=new Error('Duplicate');e.code=11000;throw e}data.push(copy(row));if(options.has(name)&&options.get(name).capped){const cap=api.capOverride||options.get(name).max;while(data.length>cap)data.shift()}api.trip(name+'.insert',true);return{insertedId:row._id}},
    async insertMany(list){for(const row of list)await this.insertOne(row)},
-   async updateOne(query,update,opts={}){api.trip(name+'.update',false);let row=data.find(r=>match(r,query));if(row)patch(row,update);else if(opts.upsert){row=copy(update.$setOnInsert);data.push(row);if(options.has(name)&&options.get(name).capped){const cap=api.capOverride||options.get(name).max;while(data.length>cap)data.shift()}}api.trip(name+'.update',true);return{matchedCount:row?1:0}},
-   async findOneAndUpdate(query,update){api.trip(name+'.commit',false);const row=data.find(r=>match(r,query));if(row)patch(row,update);api.trip(name+'.commit',true);return{value:copy(row||null)}},
+   async updateOne(query,update,opts={}){api.calls.push({collection:name,method:'updateOne',query:copy(query),update:copy(update),options:copy(opts)});api.trip(name+'.update',false);let row=data.find(r=>match(r,query));if(row)patch(row,update);else if(opts.upsert){row=copy(update.$setOnInsert);data.push(row);if(options.has(name)&&options.get(name).capped){const cap=api.capOverride||options.get(name).max;while(data.length>cap)data.shift()}}api.trip(name+'.update',true);return{matchedCount:row?1:0}},
+   async findOneAndUpdate(query,update,opts={}){api.calls.push({collection:name,method:'findOneAndUpdate',query:copy(query),update:copy(update),options:copy(opts)});api.trip(name+'.commit',false);const row=data.find(r=>match(r,query));const before=copy(row||null);if(row)patch(row,update);api.trip(name+'.commit',true);let value=opts.returnDocument==='after'?copy(row||null):before;if(value&&opts.projection)value=Object.fromEntries(Object.entries(value).filter(([key])=>opts.projection[key]===1));return opts.includeResultMetadata?{value}:value},
    async estimatedDocumentCount(){return data.length},
    aggregate(pipeline){const query=(pipeline.find(p=>p.$match)||{}).$match||{};const groups={};for(const row of data.filter(r=>match(r,query)))groups[row.status]=(groups[row.status]||0)+1;return{toArray:async()=>Object.entries(groups).map(([status,count])=>({_id:status,count}))}}
   }}

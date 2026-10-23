@@ -1,0 +1,59 @@
+{
+  "schema": 1,
+  "stages": [
+    {
+      "version": "4.4.2",
+      "image_id": "sha256:3068f6bb852ef596c20ca7ccbcd34df94f02d6035a2d83aea1e20e1781ba19b8",
+      "registry_reference": "mongo@sha256:02e9941ddcb949424fa4eb01f9d235da91a5b7b64feb5887eab77e1ef84a3bad",
+      "platform": "linux/amd64",
+      "entry_fcv": "4.4",
+      "exit_fcv": "4.4",
+      "shell": "mongo"
+    },
+    {
+      "version": "4.4.30",
+      "image_id": "sha256:0010f63d26952bd3960fac5513c64a1cf7d6299f31fa7b54ac1b36633ee04333",
+      "registry_reference": "mongo@sha256:7250955b2354cc6ad3548b428628e441e34625caa39dd64906e85adf369e1942",
+      "platform": "linux/amd64",
+      "entry_fcv": "4.4",
+      "exit_fcv": "4.4",
+      "shell": "mongo"
+    },
+    {
+      "version": "5.0.33",
+      "image_id": "sha256:bb3fe45d68c169ff186e84350f64261e263a555b75257219fd375312591d1cb2",
+      "registry_reference": "mongo@sha256:9fe0747650162376edd9f67a0b8e48a43e920cca54f134be82e45ce46ae7fc8d",
+      "platform": "linux/amd64",
+      "entry_fcv": "4.4",
+      "exit_fcv": "5.0",
+      "shell": "mongo"
+    },
+    {
+      "version": "6.0.28",
+      "image_id": "sha256:43d1024ae43f157265eb749e962bd318f015b2f8c0ea4e027b217f82d22da8f5",
+      "registry_reference": "mongo@sha256:268eb517abcb8a1bb4cf5f290ec2ac37185e78bfb62e7111576bbb3d8b092456",
+      "platform": "linux/amd64",
+      "entry_fcv": "5.0",
+      "exit_fcv": "6.0",
+      "shell": "mongosh"
+    },
+    {
+      "version": "7.0.45",
+      "image_id": "sha256:72404c1083af5306608b7487184154a199b7d183f4ef250339f3c1a0b72e2523",
+      "registry_reference": "mongo@sha256:6dad6a5e2addb71d84eb417fcbcba0e11d096669917f8e8c26607cd7b52f9495",
+      "platform": "linux/amd64",
+      "entry_fcv": "6.0",
+      "exit_fcv": "7.0",
+      "shell": "mongosh"
+    },
+    {
+      "version": "8.0.34",
+      "image_id": "sha256:09f940d01e0c09abbfd246a2b10965cbf86a87c9c1dad86b374f925a084976c8",
+      "registry_reference": "mongo@sha256:4c7d0fb8fde0681e2ae443b0b09371ec9c31a81caab05af9579458bfcb30d656",
+      "platform": "linux/amd64",
+      "entry_fcv": "7.0",
+      "exit_fcv": "8.0",
+      "shell": "mongosh"
+    }
+  ]
+}

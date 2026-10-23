@@ -42,8 +42,8 @@ async function extract(db, options) {
 async function main() {
   if (process.env.EMAIL_TAIL_EXECUTE !== '1') throw new Error('Explicit execution required')
   const options = JSON.parse(process.env.EMAIL_TAIL_OPTIONS || '{}'), cfg = require('/app/config')
-  const client = new MongoClient(cfg.MONGO_ADDR, { useNewUrlParser: true, useUnifiedTopology: true,
-    poolSize: 1, serverSelectionTimeoutMS: 10000, socketTimeoutMS: 90000 })
+  const client = new MongoClient(cfg.MONGO_ADDR, {
+    maxPoolSize: 1, serverSelectionTimeoutMS: 10000, socketTimeoutMS: 90000 })
   try { await client.connect(); process.stdout.write(JSON.stringify(await extract(client.db(cfg.MONGO_DB), options)) + '\n') }
   finally { await client.close() }
 }

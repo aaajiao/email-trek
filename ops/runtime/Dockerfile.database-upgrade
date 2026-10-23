@@ -1,0 +1,20 @@
+# PRIVATE retained-image derivative: never push this output to a public registry.
+# Preflight SOURCE_IMAGE must resolve to the reviewed ae47f206... image ID.
+ARG SOURCE_IMAGE=archive-local/emailtrek-node24-retained:ae47f20666fe
+FROM ${SOURCE_IMAGE} AS dependencies
+WORKDIR /driver-deps
+COPY package.json yarn.lock ./
+RUN test "$(node --version)" = "v24.22.1" \
+ && test "$(yarn --version)" = "1.22.22" \
+ && yarn install --production=true --frozen-lockfile --ignore-optional --ignore-scripts --non-interactive --cache-folder /driver-cache \
+ && node -e "if(require('./node_modules/mongodb/package.json').version!=='7.7.0')process.exit(1)" \
+ && rm -rf /driver-cache
+
+FROM ${SOURCE_IMAGE}
+WORKDIR /app
+RUN rm -rf /app/node_modules
+COPY --from=dependencies /driver-deps/node_modules /app/node_modules
+COPY package.json yarn.lock /app/
+COPY lib/mongo.js lib/boundedStore.js lib/migrate-storage.js /app/lib/
+# Inherit the exact original entrypoint, command, environment and global PM2.
+# Existing read-only source mounts must be reconciled independently at deployment.
